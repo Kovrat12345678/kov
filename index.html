@@ -1,284 +1,282 @@
 <!DOCTYPE html>
 <html lang="hu">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telefontok Tervező | Készítsd el egyedi tokod!</title>
-    <meta name="description"
-        content="Tervezd meg saját egyedi telefontokod! Tölts fel képeket, adj hozzá szöveget, válassz színeket és készítsd el álmaid tokját.">
+    <title>ScreenShield Pro - Prémium Üvegfóliák</title>
+    <meta name="description" content="Prémium minőségű Samsung és iPhone üvegfóliák. Válaszd ki telefonod és védj meg a kijelződ!">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <!-- Header -->
     <header class="header">
-        <div class="logo">
-            <span class="logo-icon">📱</span>
-            <span class="logo-text">TokTervező</span>
+        <div class="container">
+            <a href="#" class="logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">ScreenShield<span class="logo-accent">Pro</span></span>
+            </a>
+            <nav class="nav">
+                <a href="#phones" class="nav-link">Telefonok</a>
+                <a href="#products" class="nav-link">Termékek</a>
+                <a href="#about" class="nav-link">Rólunk</a>
+                <a href="#contact" class="nav-link">Kapcsolat</a>
+            </nav>
+            <button class="cart-btn" id="cartBtn">
+                <span class="cart-icon">🛒</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
-        <nav class="nav-actions">
-            <button class="btn btn-secondary" id="undoBtn" title="Visszavonás (Ctrl+Z)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 10h13a4 4 0 0 1 0 8H7" />
-                    <path d="m3 10 4-4" />
-                    <path d="m3 10 4 4" />
-                </svg>
-            </button>
-            <button class="btn btn-secondary" id="redoBtn" title="Újra (Ctrl+Y)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 10H8a4 4 0 0 0 0 8h10" />
-                    <path d="m21 10-4-4" />
-                    <path d="m21 10-4 4" />
-                </svg>
-            </button>
-            <button class="btn btn-primary" id="downloadBtn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                <span>Letöltés</span>
-            </button>
-        </nav>
     </header>
 
-    <main class="main-container">
-        <aside class="toolbar">
-            <div class="toolbar-section">
-                <h3 class="toolbar-title">Telefon típusa</h3>
-                <select id="phoneModelSelect" class="select-field">
-                    <optgroup label="Apple iPhone">
-                        <option value="iphone-16-pro-max" data-width="260" data-height="530" data-radius="50"
-                            data-camera="triple-large">iPhone 16 Pro Max</option>
-                        <option value="iphone-16-pro" data-width="250" data-height="510" data-radius="50"
-                            data-camera="triple-large">iPhone 16 Pro</option>
-                        <option value="iphone-16" data-width="240" data-height="490" data-radius="48"
-                            data-camera="dual-diagonal">iPhone 16</option>
-                        <option value="iphone-15-pro-max" data-width="260" data-height="530" data-radius="50"
-                            data-camera="triple-large">iPhone 15 Pro Max</option>
-                        <option value="iphone-15-pro" data-width="250" data-height="510" data-radius="50"
-                            data-camera="triple-large">iPhone 15 Pro</option>
-                        <option value="iphone-15" data-width="240" data-height="490" data-radius="48"
-                            data-camera="dual-diagonal">iPhone 15</option>
-                    </optgroup>
-                    <optgroup label="Samsung Galaxy">
-                        <option value="galaxy-s24-ultra" data-width="265" data-height="540" data-radius="42"
-                            data-camera="quad-column">Galaxy S24 Ultra</option>
-                        <option value="galaxy-s24-plus" data-width="255" data-height="520" data-radius="42"
-                            data-camera="triple-column">Galaxy S24+</option>
-                        <option value="galaxy-s24" data-width="245" data-height="500" data-radius="42"
-                            data-camera="triple-column">Galaxy S24</option>
-                        <option value="galaxy-z-flip6" data-width="240" data-height="430" data-radius="38"
-                            data-camera="dual-row">Galaxy Z Flip6</option>
-                        <option value="galaxy-z-fold6" data-width="255" data-height="510" data-radius="40"
-                            data-camera="triple-column">Galaxy Z Fold6</option>
-                    </optgroup>
-                    <optgroup label="Google Pixel">
-                        <option value="pixel-9-pro-xl" data-width="260" data-height="535" data-radius="45"
-                            data-camera="dual-bar">Pixel 9 Pro XL</option>
-                        <option value="pixel-9-pro" data-width="250" data-height="515" data-radius="45"
-                            data-camera="dual-bar">Pixel 9 Pro</option>
-                        <option value="pixel-9" data-width="245" data-height="500" data-radius="45"
-                            data-camera="dual-bar">Pixel 9</option>
-                        <option value="pixel-9-pro-fold" data-width="255" data-height="505" data-radius="40"
-                            data-camera="dual-bar">Pixel 9 Pro Fold</option>
-                    </optgroup>
-                    <optgroup label="OnePlus">
-                        <option value="oneplus-12" data-width="255" data-height="520" data-radius="44"
-                            data-camera="circular">OnePlus 12</option>
-                        <option value="oneplus-open" data-width="250" data-height="510" data-radius="40"
-                            data-camera="circular">OnePlus Open</option>
-                    </optgroup>
-                    <optgroup label="Xiaomi">
-                        <option value="xiaomi-14-ultra" data-width="260" data-height="535" data-radius="42"
-                            data-camera="circular-large">Xiaomi 14 Ultra</option>
-                        <option value="xiaomi-14-pro" data-width="250" data-height="515" data-radius="42"
-                            data-camera="circular">Xiaomi 14 Pro</option>
-                    </optgroup>
-                </select>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <nav class="mobile-nav">
+            <a href="#phones" class="mobile-nav-link">Telefonok</a>
+            <a href="#products" class="mobile-nav-link">Termékek</a>
+            <a href="#about" class="mobile-nav-link">Rólunk</a>
+            <a href="#contact" class="mobile-nav-link">Kapcsolat</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        <div class="container hero-content">
+            <h1 class="hero-title animate-fade-up">
+                Prémium<br>
+                <span class="gradient-text">Üvegfóliák</span>
+            </h1>
+            <p class="hero-subtitle animate-fade-up delay-1">
+                Védd meg telefonod kijelzőjét a legmagasabb minőségű üvegfóliákkal. 
+                Samsung és iPhone készülékekhez.
+            </p>
+            <div class="hero-buttons animate-fade-up delay-2">
+                <a href="#phones" class="btn btn-primary">
+                    <span>Válassz Telefont</span>
+                    <span class="btn-shine"></span>
+                </a>
+                <a href="#products" class="btn btn-secondary">Összes Termék</a>
             </div>
-
-            <div class="toolbar-section">
-                <h3 class="toolbar-title">Elemek</h3>
-
-                <button class="tool-btn" id="addImageBtn">
-                    <div class="tool-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                            <circle cx="8.5" cy="8.5" r="1.5" />
-                            <polyline points="21 15 16 10 5 21" />
-                        </svg>
-                    </div>
-                    <span>Kép hozzáadása</span>
-                </button>
-
-                <button class="tool-btn" id="addTextBtn">
-                    <div class="tool-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <polyline points="4 7 4 4 20 4 20 7" />
-                            <line x1="9" y1="20" x2="15" y2="20" />
-                            <line x1="12" y1="4" x2="12" y2="20" />
-                        </svg>
-                    </div>
-                    <span>Szöveg hozzáadása</span>
-                </button>
-
-                <input type="file" id="imageInput" accept="image/*" multiple hidden>
-            </div>
-
-            <div class="toolbar-section">
-                <h3 class="toolbar-title">Matricák</h3>
-                <div class="stickers-grid">
-                    <button class="sticker-btn" data-sticker="❤️">❤️</button>
-                    <button class="sticker-btn" data-sticker="⭐">⭐</button>
-                    <button class="sticker-btn" data-sticker="🔥">🔥</button>
-                    <button class="sticker-btn" data-sticker="💎">💎</button>
-                    <button class="sticker-btn" data-sticker="🌈">🌈</button>
-                    <button class="sticker-btn" data-sticker="🎵">🎵</button>
-                    <button class="sticker-btn" data-sticker="🌸">🌸</button>
-                    <button class="sticker-btn" data-sticker="✨">✨</button>
-                    <button class="sticker-btn" data-sticker="🦋">🦋</button>
-                    <button class="sticker-btn" data-sticker="🍀">🍀</button>
-                    <button class="sticker-btn" data-sticker="🌙">🌙</button>
-                    <button class="sticker-btn" data-sticker="☀️">☀️</button>
+            <div class="hero-stats animate-fade-up delay-3">
+                <div class="stat">
+                    <span class="stat-number">50K+</span>
+                    <span class="stat-label">Elégedett Vásárló</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">9H</span>
+                    <span class="stat-label">Keménység</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">99.9%</span>
+                    <span class="stat-label">Átlátszóság</span>
                 </div>
             </div>
-
-            <div class="toolbar-section">
-                <h3 class="toolbar-title">Háttér</h3>
-
-                <div class="bg-option">
-                    <label>Egyszínű</label>
-                    <input type="color" id="bgColorPicker" value="#1a1a2e">
-                </div>
-
-                <div class="bg-option">
-                    <label>Gradiens</label>
-                    <div class="gradient-inputs">
-                        <input type="color" id="gradientColor1" value="#667eea">
-                        <input type="color" id="gradientColor2" value="#764ba2">
-                    </div>
-                    <button class="btn btn-small" id="applyGradientBtn">Alkalmaz</button>
-                </div>
-
-                <div class="preset-gradients">
-                    <button class="gradient-preset" data-gradient="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                        style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"></button>
-                    <button class="gradient-preset" data-gradient="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"
-                        style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"></button>
-                    <button class="gradient-preset" data-gradient="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"
-                        style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"></button>
-                    <button class="gradient-preset" data-gradient="linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"
-                        style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"></button>
-                    <button class="gradient-preset" data-gradient="linear-gradient(135deg, #fa709a 0%, #fee140 100%)"
-                        style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%)"></button>
-                    <button class="gradient-preset" data-gradient="linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"
-                        style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)"></button>
-                </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
             </div>
-        </aside>
+        </div>
+    </section>
 
-        <!-- Canvas Area -->
-        <section class="canvas-area">
-            <div class="phone-container">
-                <div class="phone-frame" id="phoneFrame" data-model="iphone-16-pro-max">
-                    <!-- Back camera module -->
-                    <div class="camera-module" id="cameraModule">
-                        <div class="camera-lens main"></div>
-                        <div class="camera-lens ultra"></div>
-                        <div class="camera-lens tele"></div>
-                        <div class="camera-flash"></div>
-                    </div>
-                    <canvas id="designCanvas"></canvas>
-                </div>
+    <!-- Phone Selector Section -->
+    <section class="phone-selector" id="phones">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag">Válassz Telefonod</span>
+                <h2 class="section-title">Melyik telefonod van?</h2>
+                <p class="section-subtitle">Válaszd ki a márkát és modellt, hogy megtaláld a tökéletes üvegfóliát</p>
             </div>
-            <p class="canvas-hint">💡 Húzd az elemeket a pozícionáláshoz • Kattints rájuk a szerkesztéshez •
-                <strong>Hátoldali nézet</strong></p>
-        </section>
+            
+            <div class="selector-container animate-on-scroll">
+                <!-- Brand Selection -->
+                <div class="brand-selector">
+                    <button class="brand-btn" data-brand="samsung">
+                        <div class="brand-logo">
+                            <span class="brand-icon samsung-icon">S</span>
+                        </div>
+                        <span class="brand-name">Samsung</span>
+                    </button>
+                    <button class="brand-btn" data-brand="iphone">
+                        <div class="brand-logo">
+                            <span class="brand-icon apple-icon">🍎</span>
+                        </div>
+                        <span class="brand-name">iPhone</span>
+                    </button>
+                </div>
 
-        <!-- Right Properties Panel -->
-        <aside class="properties-panel" id="propertiesPanel">
-            <div class="panel-header">
-                <h3>Tulajdonságok</h3>
-                <button class="btn btn-icon" id="deleteSelectedBtn" title="Törlés">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <polyline points="3 6 5 6 21 6" />
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                    </svg>
-                </button>
-            </div>
-
-            <div class="panel-content" id="panelContent">
-                <div class="empty-state">
-                    <p>Válassz ki egy elemet a szerkesztéshez</p>
-                </div>
-            </div>
-
-            <!-- Text Properties Template -->
-            <template id="textPropertiesTemplate">
-                <div class="property-group">
-                    <label>Szöveg</label>
-                    <input type="text" id="textContent" class="input-field" placeholder="Írd be a szöveget...">
-                </div>
-                <div class="property-group">
-                    <label>Betűtípus</label>
-                    <select id="fontFamily" class="select-field">
-                        <option value="Inter">Inter</option>
-                        <option value="Outfit">Outfit</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Courier New">Courier New</option>
-                        <option value="Comic Sans MS">Comic Sans MS</option>
-                    </select>
-                </div>
-                <div class="property-group">
-                    <label>Méret</label>
-                    <input type="range" id="fontSize" min="12" max="72" value="24">
-                    <span id="fontSizeValue">24px</span>
-                </div>
-                <div class="property-group">
-                    <label>Szín</label>
-                    <input type="color" id="textColor" value="#ffffff">
-                </div>
-                <div class="property-group">
-                    <label>Stílus</label>
-                    <div class="style-buttons">
-                        <button class="style-btn" id="boldBtn" title="Félkövér"><b>B</b></button>
-                        <button class="style-btn" id="italicBtn" title="Dőlt"><i>I</i></button>
-                        <button class="style-btn" id="underlineBtn" title="Aláhúzott"><u>U</u></button>
+                <!-- Model Selection -->
+                <div class="model-selector" id="modelSelector">
+                    <h3 class="model-title">Válassz modellt</h3>
+                    <div class="model-grid" id="modelGrid">
+                        <!-- Models will be inserted by JavaScript -->
                     </div>
                 </div>
-            </template>
+            </div>
+        </div>
+    </section>
 
-            <!-- Image Properties Template -->
-            <template id="imagePropertiesTemplate">
-                <div class="property-group">
-                    <label>Átlátszóság</label>
-                    <input type="range" id="imageOpacity" min="0" max="100" value="100">
-                    <span id="opacityValue">100%</span>
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag">Termékeink</span>
+                <h2 class="section-title" id="productsTitle">Válassz egy telefont a termékekhez</h2>
+                <p class="section-subtitle">Prémium minőségű üvegfóliák minden szükségletre</p>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be inserted by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="about">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-tag">Miért Válassz Minket?</span>
+                <h2 class="section-title">Prémium Védelem</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">💪</div>
+                    <h3>9H Keménység</h3>
+                    <p>Maximális védelem karcolások és ütések ellen a legerősebb üvegtechnológiával</p>
                 </div>
-                <div class="property-group">
-                    <label>Réteg</label>
-                    <div class="layer-buttons">
-                        <button class="btn btn-small" id="bringForwardBtn">Előre</button>
-                        <button class="btn btn-small" id="sendBackwardBtn">Hátra</button>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">👁️</div>
+                    <h3>Kristálytiszta</h3>
+                    <p>99.9% átlátszóság - mintha nem is lenne rajta semmi</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Tökéletes Illeszkedés</h3>
+                    <p>Precíz vágás minden modellhez, buborékmentes felhelyezés</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">✨</div>
+                    <h3>Olajálló Bevonat</h3>
+                    <p>Ujjlenyomat-mentes felület, könnyű tisztítás</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-content animate-on-scroll">
+                <div class="contact-info">
+                    <span class="section-tag">Kapcsolat</span>
+                    <h2 class="section-title">Kérdésed van?</h2>
+                    <p>Vedd fel velünk a kapcsolatot és segítünk megtalálni a tökéletes üvegfóliát!</p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-icon">📧</span>
+                            <span>info@screenshieldpro.hu</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📱</span>
+                            <span>+36 30 123 4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-icon">📍</span>
+                            <span>Budapest, Váci út 1.</span>
+                        </div>
                     </div>
                 </div>
-            </template>
-        </aside>
-    </main>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Neved" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email címed" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Üzeneted" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>Küldés</span>
+                        <span class="btn-shine"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
 
-    <!-- Fabric.js CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
-    <script src="app.js"></script>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <span class="logo-icon">🛡️</span>
+                        <span class="logo-text">ScreenShield<span class="logo-accent">Pro</span></span>
+                    </a>
+                    <p>Prémium üvegfóliák Samsung és iPhone készülékekhez.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigáció</h4>
+                    <a href="#phones">Telefonok</a>
+                    <a href="#products">Termékek</a>
+                    <a href="#about">Rólunk</a>
+                    <a href="#contact">Kapcsolat</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Információ</h4>
+                    <a href="#">Szállítás</a>
+                    <a href="#">Garancia</a>
+                    <a href="#">ÁSZF</a>
+                    <a href="#">Adatvédelem</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ScreenShield Pro. Minden jog fenntartva.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Kosár</h3>
+            <button class="cart-close" id="cartClose">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be inserted by JavaScript -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Összesen:</span>
+                <span id="cartTotal">0 Ft</span>
+            </div>
+            <button class="btn btn-primary btn-full">
+                <span>Megrendelés</span>
+                <span class="btn-shine"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message" id="toastMessage">Termék hozzáadva!</span>
+    </div>
+
+    <script src="script.js"></script>
 </body>
-
 </html>
