@@ -445,10 +445,13 @@ function initContactForm() {
                     to_name: "ScreenShield Pro Admin"
                 };
 
-                // Replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID
+                // Send notification to owner
                 await emailjs.send('service_dqwa6g8', 'template_8a420h7', templateParams);
 
-                showToast('✓ Üzenet sikeresen elküldve (EmailJS)!');
+                // Send auto-reply to visitor
+                await emailjs.send('service_dqwa6g8', 'template_x59rxin', templateParams);
+
+                showToast('✓ Üzenet és visszaigazolás elküldve!');
                 contactForm.reset();
             } else {
                 // ===========================================
