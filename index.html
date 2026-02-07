@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScreenShield Pro - Prémium Üvegfóliák</title>
-    <meta name="description" content="Prémium minőségű Samsung és iPhone üvegfóliák. Válaszd ki telefonod és védj meg a kijelződ!">
+    <meta name="description"
+        content="Prémium minőségű Samsung és iPhone üvegfóliák. Válaszd ki telefonod és védj meg a kijelződ!">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            // https://dashboard.emailjs.com/admin/account
+            emailjs.init("j-F-zvUz1kreUJMnk");
+        })();
+    </script>
 </head>
+
 <body>
     <!-- Header -->
     <header class="header">
@@ -59,7 +70,7 @@
                 <span class="gradient-text">Üvegfóliák</span>
             </h1>
             <p class="hero-subtitle animate-fade-up delay-1">
-                Védd meg telefonod kijelzőjét a legmagasabb minőségű üvegfóliákkal. 
+                Védd meg telefonod kijelzőjét a legmagasabb minőségű üvegfóliákkal.
                 Samsung és iPhone készülékekhez.
             </p>
             <div class="hero-buttons animate-fade-up delay-2">
@@ -99,7 +110,7 @@
                 <h2 class="section-title">Melyik telefonod van?</h2>
                 <p class="section-subtitle">Válaszd ki a márkát és modellt, hogy megtaláld a tökéletes üvegfóliát</p>
             </div>
-            
+
             <div class="selector-container animate-on-scroll">
                 <!-- Brand Selection -->
                 <div class="brand-selector">
@@ -279,4 +290,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>

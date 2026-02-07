@@ -413,7 +413,7 @@ function showToast(message) {
 }
 
 // =================================
-// Contact Form
+// Contact Form (Hybrid: EmailJS + PHP)
 // =================================
 function initContactForm() {
     contactForm.addEventListener('submit', async (e) => {
@@ -422,38 +422,61 @@ function initContactForm() {
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalBtnText = submitBtn.innerHTML;
 
-        // Get form data
-        const formData = {
-            name: contactForm.querySelector('input[type="text"]').value,
-            email: contactForm.querySelector('input[type="email"]').value,
-            message: contactForm.querySelector('textarea').value
-        };
-
         // Show loading state
         submitBtn.innerHTML = '<span>Küldés...</span>';
         submitBtn.disabled = true;
 
         try {
-            const response = await fetch('send_email.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            });
+            // Check environment
+            const isGitHubPages = window.location.hostname.includes('github.io');
 
-            const result = await response.json();
+            if (isGitHubPages) {
+                // ===========================================
+                // GitHub Pages: Use EmailJS
+                // ===========================================
+                const templateParams = {
+                    from_name: contactForm.querySelector('input[type="text"]').value,
+                    from_email: contactForm.querySelector('input[type="email"]').value,
+                    message: contactForm.querySelector('textarea').value,
+                    to_name: "ScreenShield Pro Admin"
+                };
 
-            if (result.success) {
-                showToast('✓ ' + result.message);
+                // Replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID
+                await emailjs.send('service_dqwa6g8', 'template_8a420h7', templateParams);
+
+                showToast('✓ Üzenet sikeresen elküldve (EmailJS)!');
                 contactForm.reset();
             } else {
-                console.error('SERVER ERROR:', result.debug || result.message);
-                showToast('✗ ' + result.message);
+                // ===========================================
+                // Local/XAMPP: Use PHP
+                // ===========================================
+                const formData = {
+                    name: contactForm.querySelector('input[type="text"]').value,
+                    email: contactForm.querySelector('input[type="email"]').value,
+                    message: contactForm.querySelector('textarea').value
+                };
+
+                const response = await fetch('send_email.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast('✓ ' + result.message);
+                    contactForm.reset();
+                } else {
+                    console.error('SERVER ERROR:', result.debug || result.message);
+                    showToast('✗ ' + result.message);
+                }
             }
         } catch (error) {
-            console.error('NETWORK ERROR:', error);
-            showToast('✗ Hálózati hiba! Részletek a konzolban.');
+            console.error('ERROR:', error);
+            // Check if it's an EmailJS error (usually an object) or network error
+            const errorMsg = error.text ? error.text : 'Hálózati hiba! Részletek a konzolban.';
+            showToast('✗ Hiba: ' + errorMsg);
         } finally {
             // Restore button
             submitBtn.innerHTML = originalBtnText;
