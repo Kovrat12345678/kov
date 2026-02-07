@@ -427,10 +427,14 @@ function initContactForm() {
         submitBtn.disabled = true;
 
         try {
-            // Check environment
-            const isGitHubPages = window.location.hostname.includes('github.io');
+            // Check environment: default to EmailJS on everything except local PHP environments
+            const isLocal = window.location.hostname === 'localhost' ||
+                window.location.hostname === '127.0.0.1' ||
+                window.location.hostname.startsWith('192.168.');
 
-            if (isGitHubPages) {
+            console.log('Environment detected:', isLocal ? 'Local (PHP)' : 'Production (EmailJS)');
+
+            if (!isLocal) {
                 // ===========================================
                 // GitHub Pages: Use EmailJS
                 // ===========================================
