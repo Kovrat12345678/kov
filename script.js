@@ -49,7 +49,10 @@ const products = [
         description: '9H keménység, buborékmentes felhelyezés',
         price: 2990,
         badge: 'Népszerű',
-        icon: '🛡️'
+        icon: '🛡️',
+        modelImages: {
+            'iPhone 15': 'assets/iphone15-premium-glass.png'
+        }
     },
     {
         id: 2,
@@ -270,12 +273,17 @@ function renderProducts() {
         return;
     }
 
-    productsGrid.innerHTML = products.map(product => `
-        <div class="product-card animate-on-scroll visible">
-            <div class="product-image">
-                ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                ${product.icon}
-            </div>
+    productsGrid.innerHTML = products.map(product => {
+        const productImg = (product.modelImages && product.modelImages[selectedModel])
+            ? `<img src="${product.modelImages[selectedModel]}" alt="${product.name}">`
+            : product.icon;
+
+        return `
+            <div class="product-card animate-on-scroll visible">
+                <div class="product-image">
+                    ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                    ${productImg}
+                </div>
             <div class="product-content">
                 <h3 class="product-title">${product.name}</h3>
                 <p class="product-description">${product.description}</p>
@@ -287,7 +295,8 @@ function renderProducts() {
                 </div>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
 
     // Add click handlers for add to cart buttons
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
