@@ -5,23 +5,21 @@ const phoneData = {
     samsung: {
         name: 'Samsung',
         models: [
-            'Galaxy S24 Ultra',
-            'Galaxy S24+',
+            'Galaxy S25 Ultra',
+            'Galaxy S25',
             'Galaxy S24',
-            'Galaxy S23 Ultra',
-            'Galaxy S23+',
             'Galaxy S23',
-            'Galaxy Z Fold 5',
-            'Galaxy Z Flip 5',
             'Galaxy A54',
-            'Galaxy A34',
-            'Galaxy A24',
-            'Galaxy A14'
+            'Galaxy A34'
         ]
     },
     iphone: {
         name: 'iPhone',
         models: [
+            'iPhone 17 Pro Max',
+            'iPhone 17 Pro',
+            'iPhone 17 Plus',
+            'iPhone 17',
             'iPhone 16 Pro Max',
             'iPhone 16 Pro',
             'iPhone 16 Plus',
@@ -34,10 +32,21 @@ const phoneData = {
             'iPhone 14 Pro',
             'iPhone 14 Plus',
             'iPhone 14',
-            'iPhone SE (2022)'
+            'iPhone 13 Pro Max',
+            'iPhone 13 Pro',
+            'iPhone 13',
+            'iPhone 13 Mini',
+            'iPhone 12 Pro Max',
+            'iPhone 12 Pro',
+            'iPhone 12',
+            'iPhone 12 Mini',
+            'iPhone 11 Pro Max',
+            'iPhone 11 Pro',
+            'iPhone 11'
         ]
     }
 };
+
 
 // =================================
 // Products Data
@@ -50,6 +59,8 @@ const products = [
         price: 2990,
         badge: 'Népszerű',
         icon: '🛡️',
+        category: 'glass',
+        image: 'assets/standard-glass.jpg',
         modelImages: {
             'iPhone 15': 'assets/iphone15-premium-glass.png'
         }
@@ -60,7 +71,9 @@ const products = [
         description: 'Betekintésvédő technológia',
         price: 4490,
         badge: 'Új',
-        icon: '👁️'
+        icon: '👁️',
+        category: 'glass',
+        image: 'assets/standard-glass.jpg'
     },
     {
         id: 3,
@@ -68,7 +81,9 @@ const products = [
         description: 'Kékfény szűrő, szemvédelem',
         price: 3990,
         badge: null,
-        icon: '💙'
+        icon: '💙',
+        category: 'glass',
+        image: 'assets/standard-glass.jpg'
     },
     {
         id: 4,
@@ -76,15 +91,9 @@ const products = [
         description: 'Matt felület, tükröződésmentes',
         price: 3490,
         badge: null,
-        icon: '✨'
-    },
-    {
-        id: 5,
-        name: 'Full Cover 3D Glass',
-        description: 'Teljes kijelző lefedés, ívelt szélek',
-        price: 4990,
-        badge: 'Prémium',
-        icon: '💎'
+        icon: '✨',
+        category: 'glass',
+        image: 'assets/standard-glass.jpg'
     },
     {
         id: 6,
@@ -92,7 +101,49 @@ const products = [
         description: 'Kameravédő üveg készlet (3 db)',
         price: 1990,
         badge: null,
-        icon: '📸'
+        icon: '📸',
+        category: 'glass',
+        image: 'assets/standard-glass.jpg'
+    },
+    {
+        id: 101,
+        name: 'Vékony Szilikon Tok',
+        description: 'Ultra vékony, víztiszta védelem',
+        price: 3990,
+        badge: 'Népszerű',
+        icon: '📱',
+        category: 'case',
+        image: 'assets/standard-case.jpg'
+    },
+    {
+        id: 102,
+        name: 'Mágneses Ütésálló Tok',
+        description: 'MagSafe kompatibilis, extra védelem',
+        price: 7990,
+        badge: 'Prémium',
+        icon: '🧲',
+        category: 'case',
+        image: 'assets/standard-case.jpg'
+    },
+    {
+        id: 103,
+        name: 'Bőr Hatású Elegáns Tok',
+        description: 'Prémium megjelenés, puha belső',
+        price: 6490,
+        badge: null,
+        icon: '💼',
+        category: 'case',
+        image: 'assets/standard-case.jpg'
+    },
+    {
+        id: 104,
+        name: 'Carbon Fiber Tok',
+        description: 'Strapabíró, modern design',
+        price: 5490,
+        badge: 'Új',
+        icon: '🖤',
+        category: 'case',
+        image: 'assets/standard-case.jpg'
     }
 ];
 
@@ -101,6 +152,7 @@ const products = [
 // =================================
 let selectedBrand = null;
 let selectedModel = null;
+let selectedCategory = 'glass';
 let cart = [];
 
 // =================================
@@ -125,18 +177,217 @@ const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
 const contactForm = document.getElementById('contactForm');
 
+// Sidebar Checkout Elements
+const startCheckoutBtn = document.getElementById('startCheckoutBtn');
+const backToCartBtn = document.getElementById('backToCartBtn');
+const sidebarCheckoutForm = document.getElementById('sidebarCheckoutForm');
+const cartActions = document.getElementById('cartActions');
+
 // =================================
 // Initialize
 // =================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Ensure the page starts at the top
+    window.scrollTo(0, 0);
+
     initScrollAnimations();
     initHeaderScroll();
     initMobileMenu();
     initBrandSelector();
+    initCategorySelector();
     initCart();
+    initCheckout();
     initContactForm();
     renderProducts();
 });
+
+// =================================
+// Checkout Initialization
+// =================================
+function initCheckout() {
+    if (startCheckoutBtn) {
+        startCheckoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) {
+                showToast('A kosarad üres!');
+                return;
+            }
+            toggleCheckoutView(true);
+        });
+    }
+
+    if (backToCartBtn) {
+        backToCartBtn.addEventListener('click', () => {
+            toggleCheckoutView(false);
+        });
+    }
+
+    if (sidebarCheckoutForm) {
+        sidebarCheckoutForm.addEventListener('submit', handleOrderSubmit);
+    }
+}
+
+function toggleCheckoutView(show) {
+    if (show) {
+        sidebarCheckoutForm.style.display = 'flex';
+        cartActions.style.display = 'none';
+        cartSidebar.classList.add('checkout-mode');
+    } else {
+        sidebarCheckoutForm.style.display = 'none';
+        cartActions.style.display = 'flex';
+        cartSidebar.classList.remove('checkout-mode');
+    }
+}
+
+async function handleOrderSubmit(e) {
+    e.preventDefault();
+
+    const submitBtn = sidebarCheckoutForm.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.innerHTML;
+
+    submitBtn.innerHTML = '<span>Küldés...</span>';
+    submitBtn.disabled = true;
+
+    const email = document.getElementById('sideOrderEmail').value.trim();
+    const emailConfirm = document.getElementById('sideOrderEmailConfirm').value.trim();
+
+    if (email !== emailConfirm) {
+        showToast('✗ A két email cím nem egyezik!');
+        document.getElementById('sideOrderEmailConfirm').style.borderColor = '#ef4444';
+        document.getElementById('sideOrderEmailConfirm').focus();
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+        return;
+    }
+
+    // Reset border color if they match now
+    document.getElementById('sideOrderEmailConfirm').style.borderColor = '';
+
+    const orderData = {
+        type: 'order',
+        name: document.getElementById('sideOrderName').value.trim(),
+        email: email,
+        phone: document.getElementById('sideOrderPhone').value.trim(),
+        address: document.getElementById('sideOrderAddress').value.trim(),
+        cart: cart,
+        total: cart.reduce((sum, item) => sum + item.price, 0)
+    };
+
+    try {
+        const isLocal = window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.hostname.startsWith('192.168.') ||
+            window.location.hostname.startsWith('10.') ||
+            window.location.hostname.startsWith('172.');
+
+        if (!isLocal) {
+            // Production: EmailJS
+            const templateParams = {
+                from_name: orderData.name,
+                from_email: orderData.email,
+                phone: orderData.phone,
+                address: orderData.address,
+                // Use <br> for EmailJS HTML templates
+                order_details: cart.map(item => `${item.brand} ${item.model}: ${item.name} (${formatPrice(item.price)})`).join('<br>'),
+                total_price: formatPrice(orderData.total),
+                to_name: "ScreenShield Pro Admin",
+                to_email: orderData.email // For auto-reply
+            };
+
+            console.log('Sending order via EmailJS...', templateParams);
+
+            // Send to Admin
+            const adminRes = await emailjs.send('service_dqwa6g8', 'template_8a420h7', templateParams);
+            console.log('Admin EmailJS Response:', adminRes);
+
+            // Send to Customer (Auto-reply)
+            const customerRes = await emailjs.send('service_dqwa6g8', 'template_x59rxin', templateParams);
+            console.log('Customer EmailJS Response:', customerRes);
+
+            showToast('✓ Rendelés és visszaigazolás elküldve!');
+        } else {
+            // Local: PHP
+            const response = await fetch('send_email.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(orderData)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                showToast('✓ ' + result.message);
+            } else {
+                throw new Error(result.debug || result.message);
+            }
+        }
+
+        // Success: Clear cart, reset form, close sidebar, reset view
+        cart = [];
+        saveCart();
+        updateCartUI();
+        sidebarCheckoutForm.reset();
+        toggleCheckoutView(false);
+        closeCart();
+
+    } catch (error) {
+        console.error('ORDER SUBMISSION ERROR:', error);
+        let errorMsg = 'Hiba történt a küldéskor!';
+
+        if (error.text) errorMsg += ' (EmailJS: ' + error.text + ')';
+        else if (error.message) errorMsg += ' (' + error.message + ')';
+
+        showToast('✗ ' + errorMsg);
+    } finally {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
+    }
+}
+
+// =================================
+// Category Selector
+// =================================
+function initCategorySelector() {
+    // Add event listeners for the header links
+    document.querySelectorAll('a[href="#products"], .mobile-nav-link[href="#products"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const isCase = link.textContent.toLowerCase().includes('tok');
+            if (isCase) {
+                selectedCategory = 'case';
+            } else if (link.textContent.toLowerCase().includes('üveg')) {
+                selectedCategory = 'glass';
+            }
+            updateCategoryUI();
+            updateProductsTitle();
+            renderProducts();
+        });
+    });
+
+    // Add event listeners for the category switcher buttons
+    const catBtns = document.querySelectorAll('.category-btn');
+    catBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            selectedCategory = btn.dataset.category;
+            updateCategoryUI();
+            updateProductsTitle();
+            renderProducts();
+        });
+    });
+}
+
+
+function updateCategoryUI() {
+    const glassBtn = document.getElementById('catGlass');
+    const caseBtn = document.getElementById('catCase');
+    if (!glassBtn || !caseBtn) return;
+
+    if (selectedCategory === 'glass') {
+        glassBtn.classList.add('active');
+        caseBtn.classList.remove('active');
+    } else {
+        glassBtn.classList.remove('active');
+        caseBtn.classList.add('active');
+    }
+}
+
 
 // =================================
 // Scroll Animations
@@ -198,6 +449,17 @@ function initBrandSelector() {
         btn.addEventListener('click', () => {
             const brand = btn.dataset.brand;
 
+            // If clicking the already selected brand, toggle it off
+            if (selectedBrand === brand) {
+                btn.classList.remove('active');
+                selectedBrand = null;
+                selectedModel = null;
+                modelSelector.classList.remove('active');
+                updateProductsTitle();
+                renderProducts();
+                return;
+            }
+
             // Update active state
             brandBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -217,6 +479,7 @@ function initBrandSelector() {
         });
     });
 }
+
 
 function renderModels(brand) {
     const models = phoneData[brand].models;
@@ -253,7 +516,8 @@ function renderModels(brand) {
 
 function updateProductsTitle() {
     if (selectedModel) {
-        productsTitle.textContent = `Üvegfóliák: ${selectedModel}`;
+        const categoryName = selectedCategory === 'glass' ? 'Üvegfóliák' : 'Tokok';
+        productsTitle.textContent = `${categoryName}: ${selectedModel}`;
     } else {
         productsTitle.textContent = 'Válassz egy telefont a termékekhez';
     }
@@ -273,10 +537,14 @@ function renderProducts() {
         return;
     }
 
-    productsGrid.innerHTML = products.map(product => {
+    const filteredProducts = products.filter(p => p.category === selectedCategory);
+
+    productsGrid.innerHTML = filteredProducts.map(product => {
         const productImg = (product.modelImages && product.modelImages[selectedModel])
             ? `<img src="${product.modelImages[selectedModel]}" alt="${product.name}">`
-            : product.icon;
+            : product.image
+                ? `<img src="${product.image}" alt="${product.name}">`
+                : product.icon;
 
         return `
             <div class="product-card animate-on-scroll visible">
@@ -298,6 +566,7 @@ function renderProducts() {
         `;
     }).join('');
 
+
     // Add click handlers for add to cart buttons
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', () => {
@@ -311,10 +580,16 @@ function renderProducts() {
 // Cart Functions
 // =================================
 function initCart() {
-    // Load cart from localStorage
+    // Load cart from localStorage and validate
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
-        cart = JSON.parse(savedCart);
+        const rawCart = JSON.parse(savedCart);
+        // Filter out items that are no longer in the products list (e.g. old 3D figures)
+        cart = rawCart.filter(item => products.some(p => p.id === item.productId));
+
+        if (cart.length !== rawCart.length) {
+            saveCart(); // Update storage if items were removed
+        }
         updateCartUI();
     }
 
@@ -404,6 +679,11 @@ function updateCartUI() {
         });
     }
 
+    // If cart becomes empty, ensure we're back in cart view
+    if (cart.length === 0) {
+        toggleCheckoutView(false);
+    }
+
     // Update total
     const total = cart.reduce((sum, item) => sum + item.price, 0);
     cartTotal.textContent = formatPrice(total);
@@ -439,7 +719,9 @@ function initContactForm() {
             // Check environment: default to EmailJS on everything except local PHP environments
             const isLocal = window.location.hostname === 'localhost' ||
                 window.location.hostname === '127.0.0.1' ||
-                window.location.hostname.startsWith('192.168.');
+                window.location.hostname.startsWith('192.168.') ||
+                window.location.hostname.startsWith('10.') ||
+                window.location.hostname.startsWith('172.');
 
             console.log('Environment detected:', isLocal ? 'Local (PHP)' : 'Production (EmailJS)');
 
@@ -448,11 +730,13 @@ function initContactForm() {
                 // GitHub Pages: Use EmailJS
                 // ===========================================
                 const templateParams = {
-                    from_name: contactForm.querySelector('input[type="text"]').value,
-                    from_email: contactForm.querySelector('input[type="email"]').value,
-                    message: contactForm.querySelector('textarea').value,
+                    from_name: contactForm.querySelector('input[type="text"]').value.trim(),
+                    from_email: contactForm.querySelector('input[type="email"]').value.trim(),
+                    message: contactForm.querySelector('textarea').value.trim(),
                     to_name: "ScreenShield Pro Admin"
                 };
+
+                console.log('Sending message via EmailJS...', templateParams);
 
                 // Send notification to owner
                 await emailjs.send('service_dqwa6g8', 'template_8a420h7', templateParams);
@@ -467,9 +751,9 @@ function initContactForm() {
                 // Local/XAMPP: Use PHP
                 // ===========================================
                 const formData = {
-                    name: contactForm.querySelector('input[type="text"]').value,
-                    email: contactForm.querySelector('input[type="email"]').value,
-                    message: contactForm.querySelector('textarea').value
+                    name: contactForm.querySelector('input[type="text"]').value.trim(),
+                    email: contactForm.querySelector('input[type="email"]').value.trim(),
+                    message: contactForm.querySelector('textarea').value.trim()
                 };
 
                 const response = await fetch('send_email.php', {
@@ -485,14 +769,17 @@ function initContactForm() {
                     contactForm.reset();
                 } else {
                     console.error('SERVER ERROR:', result.debug || result.message);
-                    showToast('✗ ' + result.message);
+                    throw new Error(result.message);
                 }
             }
         } catch (error) {
-            console.error('ERROR:', error);
-            // Check if it's an EmailJS error (usually an object) or network error
-            const errorMsg = error.text ? error.text : 'Hálózati hiba! Részletek a konzolban.';
-            showToast('✗ Hiba: ' + errorMsg);
+            console.error('CONTACT FORM ERROR:', error);
+            let errorMsg = 'Hiba történt a küldéskor!';
+
+            if (error.text) errorMsg += ' (EmailJS: ' + error.text + ')';
+            else if (error.message) errorMsg += ' (' + error.message + ')';
+
+            showToast('✗ ' + errorMsg);
         } finally {
             // Restore button
             submitBtn.innerHTML = originalBtnText;

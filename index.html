@@ -12,6 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function () {
@@ -31,7 +33,8 @@
             </a>
             <nav class="nav">
                 <a href="#phones" class="nav-link">Telefonok</a>
-                <a href="#products" class="nav-link">Termékek</a>
+                <a href="#products" class="nav-link">Üvegfóliák</a>
+                <a href="#products" class="nav-link">Tokok</a>
                 <a href="#about" class="nav-link">Rólunk</a>
                 <a href="#contact" class="nav-link">Kapcsolat</a>
             </nav>
@@ -51,7 +54,8 @@
     <div class="mobile-menu" id="mobileMenu">
         <nav class="mobile-nav">
             <a href="#phones" class="mobile-nav-link">Telefonok</a>
-            <a href="#products" class="mobile-nav-link">Termékek</a>
+            <a href="#products" class="mobile-nav-link">Üvegfóliák</a>
+            <a href="#products" class="mobile-nav-link">Tokok</a>
             <a href="#about" class="mobile-nav-link">Rólunk</a>
             <a href="#contact" class="mobile-nav-link">Kapcsolat</a>
         </nav>
@@ -107,7 +111,7 @@
         <div class="container">
             <div class="section-header animate-on-scroll">
                 <span class="section-tag">Válassz Telefonod</span>
-                <h2 class="section-title">Melyik telefonod van?</h2>
+                <h2 class="section-title">Válaszd ki a telefont</h2>
                 <p class="section-subtitle">Válaszd ki a márkát és modellt, hogy megtaláld a tökéletes üvegfóliát</p>
             </div>
 
@@ -145,7 +149,16 @@
             <div class="section-header animate-on-scroll">
                 <span class="section-tag">Termékeink</span>
                 <h2 class="section-title" id="productsTitle">Válassz egy telefont a termékekhez</h2>
-                <p class="section-subtitle">Prémium minőségű üvegfóliák minden szükségletre</p>
+                <p class="section-subtitle">Prémium minőségű kiegészítők minden szükségletre</p>
+
+                <div class="category-switcher">
+                    <button class="category-btn active" id="catGlass" data-category="glass">
+                        Üvegfóliák
+                    </button>
+                    <button class="category-btn" id="catCase" data-category="case">
+                        Tokok
+                    </button>
+                </div>
             </div>
 
             <div class="products-grid" id="productsGrid">
@@ -197,15 +210,15 @@
                     <div class="contact-details">
                         <div class="contact-item">
                             <span class="contact-icon">📧</span>
-                            <span>info@screenshieldpro.hu</span>
+                            <span>byekovrat@gmail.com</span>
                         </div>
                         <div class="contact-item">
                             <span class="contact-icon">📱</span>
-                            <span>+36 30 123 4567</span>
+                            <span>+36 30 686 5192</span>
                         </div>
                         <div class="contact-item">
                             <span class="contact-icon">📍</span>
-                            <span>Budapest, Váci út 1.</span>
+                            <span>Kisújszállás</span>
                         </div>
                     </div>
                 </div>
@@ -275,12 +288,47 @@
                 <span>Összesen:</span>
                 <span id="cartTotal">0 Ft</span>
             </div>
-            <button class="btn btn-primary btn-full">
-                <span>Megrendelés</span>
-                <span class="btn-shine"></span>
-            </button>
+
+            <div class="cart-actions" id="cartActions">
+                <button class="btn btn-primary btn-full" id="startCheckoutBtn">
+                    <span>Megrendelés</span>
+                    <span class="btn-shine"></span>
+                </button>
+            </div>
+
+            <!-- Hidden Checkout Form in Sidebar -->
+            <form class="sidebar-checkout-form" id="sidebarCheckoutForm" style="display: none;">
+                <h4 class="form-title">Megrendelés adatai</h4>
+                <div class="form-group">
+                    <label for="sideOrderName">Név</label>
+                    <input type="text" id="sideOrderName" placeholder="Teljes neved" required>
+                </div>
+                <div class="form-group">
+                    <label for="sideOrderEmail">Email cím</label>
+                    <input type="email" id="sideOrderEmail" placeholder="pelda@email.hu" required>
+                </div>
+                <div class="form-group">
+                    <label for="sideOrderEmailConfirm">Email megerősítése</label>
+                    <input type="email" id="sideOrderEmailConfirm" placeholder="Mégegyszer az email címed" required>
+                </div>
+                <div class="form-group">
+                    <label for="sideOrderPhone">Telefonszám</label>
+                    <input type="tel" id="sideOrderPhone" placeholder="+36 30 123 4567" required>
+                </div>
+                <div class="form-group">
+                    <label for="sideOrderAddress">Szállítási cím</label>
+                    <textarea id="sideOrderAddress" rows="3" placeholder="Irányítószám, Város, Utca, Házszám"
+                        required></textarea>
+                </div>
+                <div class="checkout-actions">
+                    <button type="button" class="btn btn-secondary btn-full" id="backToCartBtn">Vissza</button>
+                    <button type="submit" class="btn btn-primary btn-full">Rendelés</button>
+                </div>
+            </form>
         </div>
     </div>
+
+
 
     <!-- Toast Notification -->
     <div class="toast" id="toast">

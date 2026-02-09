@@ -51,16 +51,20 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 }
 
 // Validate required fields
-if (empty($data['name']) || empty($data['email']) || empty($data['message'])) {
+if (empty($data['name']) || empty($data['email'])) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'message' => 'Minden mező kitöltése kötelező!']);
+    echo json_encode(['success' => false, 'message' => 'Név és Email megadása kötelező!']);
     exit();
 }
 
-// Sanitize inputs
+$type = isset($data['type']) ? $data['type'] : 'contact';
 $name = htmlspecialchars(strip_tags(trim($data['name'])));
 $email = filter_var(trim($data['email']), FILTER_SANITIZE_EMAIL);
-$message = htmlspecialchars(strip_tags(trim($data['message'])));
+$phone = isset($data['phone']) ? htmlspecialchars(strip_tags(trim($data['phone']))) : 'Nincs megadva';
+$address = isset($data['address']) ? htmlspecialchars(strip_tags(trim($data['address']))) : '';
+$message = isset($data['message']) ? htmlspecialchars(strip_tags(trim($data['message']))) : '';
+$cart = isset($data['cart']) ? $data['cart'] : [];
+$total = isset($data['total']) ? $data['total'] : 0;
 
 // Validate email format
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -69,9 +73,32 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit();
 }
 
+// Format items for logs and plain text
+$itemsText = "";
+$itemsHtml = "";
+if (!empty($cart)) {
+    foreach ($cart as $item) {
+        $priceFormatted = number_format($item['price'], 0, ',', ' ') . " Ft";
+        $itemsText .= "- {$item['brand']} {$item['model']}: {$item['name']} ($priceFormatted)\n";
+        $itemsHtml .= "
+        <tr>
+            <td style='padding: 8px; border-bottom: 1px solid #eee;'>{$item['brand']} {$item['model']}</td>
+            <td style='padding: 8px; border-bottom: 1px solid #eee;'>{$item['name']}</td>
+            <td style='padding: 8px; border-bottom: 1px solid #eee; text-align: right;'>$priceFormatted</td>
+        </tr>";
+    }
+}
+
 // Save to log file (backup)
 $timestamp = date('Y-m-d H:i:s');
-$logContent = "\n=== Új üzenet: $timestamp ===\nNév: $name\nEmail: $email\nÜzenet: $message\n";
+$logContent = "\n=== Új " . ($type === 'order' ? 'RENDELÉS' : 'üzenet') . ": $timestamp ===\n";
+$logContent .= "Név: $name\nEmail: $email\nTelefon: $phone\n";
+if ($type === 'order') {
+    $logContent .= "Cím: $address\nTermékek:\n$itemsText Összesen: " . number_format($total, 0, ',', ' ') . " Ft\n";
+}
+else {
+    $logContent .= "Üzenet: $message\n";
+}
 file_put_contents(__DIR__ . '/messages.log', $logContent, FILE_APPEND | LOCK_EX);
 
 // Send email with PHPMailer
@@ -95,47 +122,85 @@ try {
 
     // Content
     $mail->isHTML(true);
-    $mail->Subject = "Új üzenet: $name";
+    $mail->Subject = ($type === 'order' ? "Új RENDELÉS: $name" : "Új üzenet: $name");
 
     // HTML email body
+    $bodyTitle = $type === 'order' ? "Új Rendelés Érkezett" : "Új Üzenet Érkezett";
+    $totalFormatted = number_format($total, 0, ',', ' ') . " Ft";
+
     $mail->Body = "
-    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
-        <div style='background: linear-gradient(135deg, #6366f1, #ec4899); padding: 20px; border-radius: 10px 10px 0 0;'>
-            <h2 style='color: white; margin: 0;'>🛡️ ScreenShield Pro</h2>
-            <p style='color: rgba(255,255,255,0.8); margin: 5px 0 0;'>Új üzenet érkezett</p>
+    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e1e1e1; border-radius: 10px; overflow: hidden;'>
+        <div style='background-color: #6366f1; padding: 25px; text-align: center;'>
+            <h2 style='color: #ffffff; margin: 0; font-size: 24px;'>🛡️ ScreenShield Pro</h2>
+            <p style='color: #ffffff; opacity: 0.9; margin: 5px 0 0;'>$bodyTitle</p>
         </div>
-        <div style='background: #f8f9fa; padding: 25px; border-radius: 0 0 10px 10px;'>
-            <table style='width: 100%;'>
+        <div style='background-color: #ffffff; padding: 25px;'>
+            <table style='width: 100%; border-collapse: collapse;'>
                 <tr>
-                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'>
-                        <strong>Név:</strong>
-                    </td>
-                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'>
-                        $name
-                    </td>
+                    <td style='padding: 10px 0; border-bottom: 1px solid #eee; width: 30%;'><strong>Név:</strong></td>
+                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'>$name</td>
                 </tr>
                 <tr>
-                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'>
-                        <strong>Email:</strong>
-                    </td>
-                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'>
-                        <a href='mailto:$email'>$email</a>
-                    </td>
+                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'><strong>Email:</strong></td>
+                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'><a href='mailto:$email'>$email</a></td>
                 </tr>
+                <tr>
+                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'><strong>Telefon:</strong></td>
+                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'>$phone</td>
+                </tr>";
+
+    if ($type === 'order') {
+        $mail->Body .= "
+                <tr>
+                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'><strong>Cím:</strong></td>
+                    <td style='padding: 10px 0; border-bottom: 1px solid #eee;'>$address</td>
+                </tr>
+            </table>
+            <div style='margin-top: 20px;'>
+                <h4 style='color: #6366f1; margin-bottom: 10px;'>Termékek:</h4>
+                <table style='width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05);'>
+                    <thead>
+                        <tr style='background: #f1f1f1;'>
+                            <th style='padding: 10px; text-align: left; font-size: 13px;'>Modell</th>
+                            <th style='padding: 10px; text-align: left; font-size: 13px;'>Termék</th>
+                            <th style='padding: 10px; text-align: right; font-size: 13px;'>Ár</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        $itemsHtml
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan='2' style='padding: 15px; text-align: right;'><strong>Összesen:</strong></td>
+                            <td style='padding: 15px; text-align: right; font-weight: 700; color: #ec4899;'>$totalFormatted</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>";
+    }
+    else {
+        $mail->Body .= "
             </table>
             <div style='margin-top: 20px; padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #6366f1;'>
                 <strong>Üzenet:</strong>
                 <p style='margin: 10px 0 0; white-space: pre-wrap;'>$message</p>
-            </div>
-            <p style='margin-top: 20px; color: #666; font-size: 12px;'>
-                Küldve: $timestamp
-            </p>
+            </div>";
+    }
+
+    $mail->Body .= "
+            <p style='margin-top: 20px; color: #666; font-size: 12px;'>Küldve: $timestamp</p>
         </div>
-    </div>
-    ";
+    </div>";
 
     // Plain text version
-    $mail->AltBody = "Új üzenet a ScreenShield Pro weboldalról\n\nNév: $name\nEmail: $email\n\nÜzenet:\n$message\n\nKüldve: $timestamp";
+    $mail->AltBody = "ScreenShield Pro - " . ($type === 'order' ? 'Rendelés' : 'Üzenet') . "\n\n";
+    $mail->AltBody .= "Név: $name\nEmail: $email\nTelefon: $phone\n";
+    if ($type === 'order') {
+        $mail->AltBody .= "Cím: $address\n\nTermékek:\n$itemsText\nÖsszesen: $totalFormatted";
+    }
+    else {
+        $mail->AltBody .= "\nÜzenet:\n$message";
+    }
 
     $mail->send();
 
@@ -143,42 +208,82 @@ try {
     // Auto-reply to visitor
     // ==========================================
 
-    // Clear recipients for the second email
     $mail->clearAddresses();
     $mail->clearReplyTos();
-
-    // Send to the visitor
     $mail->addAddress($email, $name);
-    $mail->Subject = "Visszaigazolás: Megkaptuk üzenetét - ScreenShield Pro";
+
+    if ($type === 'order') {
+        $mail->Subject = "Rendelés visszaigazolása - ScreenShield Pro";
+        $replyHeader = "Rendelését Sikeresen Megkaptuk!";
+        $replyMessage = "Köszönjük rendelését! Megkaptuk az adatait és hamarosan felvesszük Önnel a kapcsolatot a szállítás részleteivel kapcsolatban.";
+    }
+    else {
+        $mail->Subject = "Visszaigazolás: Megkaptuk üzenetét - ScreenShield Pro";
+        $replyHeader = "Üzenetét Sikeresen Megkaptuk!";
+        $replyMessage = "Köszönjük megkeresését! Üzenetét sikeresen megkaptuk, kollégáink hamarosan felveszik Önnel a kapcsolatot.";
+    }
 
     $mail->Body = "
-    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;'>
-        <div style='background: linear-gradient(135deg, #6366f1, #ec4899); padding: 20px; border-radius: 10px 10px 0 0;'>
-            <h2 style='color: white; margin: 0;'>🛡️ ScreenShield Pro</h2>
+    <div style='font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e1e1e1; border-radius: 10px; overflow: hidden;'>
+        <div style='background-color: #6366f1; padding: 25px; text-align: center;'>
+            <h2 style='color: #ffffff; margin: 0; font-size: 24px;'>🛡️ ScreenShield Pro</h2>
+            <p style='color: #ffffff; opacity: 0.9; margin: 5px 0 0;'>$replyHeader</p>
         </div>
-        <div style='background: #f8f9fa; padding: 25px; border-radius: 0 0 10px 10px;'>
-            <p>Kedves $name!</p>
-            <p>Köszönjük megkeresését! Üzenetét sikeresen megkaptuk, és kollégáink hamarosan felveszik Önnel a kapcsolatot.</p>
-            
-            <div style='margin-top: 20px; padding: 15px; background: white; border-radius: 8px; border: 1px solid #eee;'>
-                <strong>Az elküldött üzenet:</strong>
-                <p style='margin: 10px 0 0; color: #555; white-space: pre-wrap;'>$message</p>
-            </div>
-            
-            <p style='margin-top: 20px; color: #666; font-size: 12px;'>
-                Ez egy automatikus üzenet, kérjük ne válaszoljon rá.
+        <div style='background-color: #ffffff; padding: 25px;'>
+            <p>Kedves <strong>$name</strong>!</p>
+            <p>$replyMessage</p>";
+
+    if ($type === 'order') {
+        $mail->Body .= "
+            <div style='margin-top: 25px;'>
+                <h4 style='color: #6366f1; margin-bottom: 10px;'>A rendelésed adatai:</h4>
+                <div style='background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #6366f1;'>
+                    <p style='margin: 5px 0;'><strong>Szállítási cím:</strong> $address</p>
+                    <p style='margin: 5px 0;'><strong>Telefonszám:</strong> $phone</p>
+                </div>
+
+                <table style='width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05);'>
+                    <thead>
+                        <tr style='background: #f1f1f1;'>
+                            <th style='padding: 10px; text-align: left; font-size: 13px;'>Modell</th>
+                            <th style='padding: 10px; text-align: left; font-size: 13px;'>Termék</th>
+                            <th style='padding: 10px; text-align: right; font-size: 13px;'>Ár</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        $itemsHtml
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan='2' style='padding: 15px; text-align: right;'><strong>Összesen:</strong></td>
+                            <td style='padding: 15px; text-align: right; font-weight: 700; color: #ec4899;'>$totalFormatted</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>";
+    }
+    else {
+        $mail->Body .= "
+            <div style='margin-top: 20px; padding: 15px; background: white; border-radius: 8px; border-left: 4px solid #6366f1;'>
+                <strong>Az üzeneted másolata:</strong>
+                <p style='margin: 10px 0 0; white-space: pre-wrap; font-style: italic;'>$message</p>
+            </div>";
+    }
+
+    $mail->Body .= "
+            <p style='margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; color: #666; font-size: 12px; text-align: center;'>
+                Ez egy automatikus visszaigazolás, kérjük ne válaszoljon rá.<br>
+                &copy; " . date('Y') . " ScreenShield Pro
             </p>
         </div>
-    </div>
-    ";
+    </div>";
 
-    $mail->AltBody = "Kedves $name!\n\nKöszönjük megkeresését! Üzenetét sikeresen megkaptuk, és kollégáink hamarosan felveszik Önnel a kapcsolatot.\n\nAz elküldött üzenet:\n$message";
+    $mail->AltBody = "Kedves $name!\n\n$replyMessage\n\n" . ($type === 'order' ? "Rendelés adatai:\nCím: $address\nTelefon: $phone\n\nTermékek:\n$itemsText\nÖsszesen: $totalFormatted" : "Üzeneted másolata:\n$message");
 
     $mail->send();
 
     // Success response
-    echo json_encode(['success' => true, 'message' => 'Üzenet sikeresen elküldve! (Visszaigazolást is küldtünk)']);
-
+    echo json_encode(['success' => true, 'message' => ($type === 'order' ? 'Rendelés elküldve!' : 'Üzenet elküldve!')]);
 
 }
 catch (Exception $e) {

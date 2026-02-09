@@ -581,6 +581,37 @@ section {
     margin: 0 auto;
 }
 
+/* Category Switcher */
+.category-switcher {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.category-btn {
+    padding: 12px 30px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    color: var(--text-secondary);
+    font-weight: 600;
+    transition: var(--transition-normal);
+    backdrop-filter: blur(10px);
+}
+
+.category-btn:hover {
+    border-color: var(--primary);
+    color: var(--text-primary);
+}
+
+.category-btn.active {
+    background: var(--gradient-primary);
+    border-color: transparent;
+    color: white;
+    box-shadow: var(--shadow-glow);
+}
+
 .brand-selector {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1007,6 +1038,8 @@ section {
     transition: var(--transition-normal);
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    /* Enable scrolling for the entire sidebar */
 }
 
 .cart-sidebar.active {
@@ -1275,4 +1308,129 @@ section {
     .brand-btn {
         padding: 20px;
     }
+}
+
+/* =================================
+   Sidebar Checkout
+================================= */
+.sidebar-checkout-form {
+    padding: 10px 0;
+    margin-top: 10px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Increased gap for better mobile spacing */
+    animation: fadeIn 0.4s ease;
+}
+
+.form-title {
+    font-size: 1.25rem;
+    font-weight: 800;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.sidebar-checkout-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-checkout-form label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.sidebar-checkout-form input,
+.sidebar-checkout-form textarea {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    /* More rounded */
+    padding: 14px 16px;
+    /* Larger padding for mobile */
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    /* Standard mobile font size to prevent zoom */
+    transition: var(--transition-normal);
+}
+
+.sidebar-checkout-form textarea {
+    resize: none;
+}
+
+.sidebar-checkout-form input:focus,
+.sidebar-checkout-form textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.checkout-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.checkout-actions .btn {
+    padding: 12px;
+    font-size: 0.9rem;
+}
+
+/* Sidebar transitions between cart and checkout views */
+.cart-sidebar.checkout-mode .cart-header h3 {
+    font-size: 1.1rem;
+    opacity: 0.7;
+}
+
+.cart-sidebar.checkout-mode .cart-items {
+    display: none;
+    /* Hide items to save space on mobile */
+}
+
+.cart-sidebar.checkout-mode .cart-total {
+    padding-top: 10px;
+    margin-bottom: 10px;
+    border-top: none;
+    font-size: 1.1rem;
+    justify-content: center;
+    background: rgba(99, 102, 241, 0.1);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+}
+
+.cart-sidebar.checkout-mode #cartActions {
+    display: none;
+}
+
+.cart-sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-items {
+    flex: 1;
+    overflow-y: auto;
+    transition: var(--transition-normal);
+}
+
+.cart-footer {
+    border-top: 1px solid var(--border-color);
+    padding: 20px;
+    background: var(--bg-card);
+    margin-top: auto;
+}
+
+.cart-sidebar.checkout-mode .cart-footer {
+    position: static;
+    /* Remove sticky in checkout to allow full scrolling */
+    background: transparent;
+    padding-top: 0;
 }
