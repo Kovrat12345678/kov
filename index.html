@@ -4,337 +4,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScreenShield Pro - Prémium Üvegfóliák</title>
-    <meta name="description"
-        content="Prémium minőségű Samsung és iPhone üvegfóliák. Válaszd ki telefonod és védj meg a kijelződ!">
+    <title>Itthoni Bolt – Foglalás & Átvétel</title>
+    <meta name="description" content="Válassz termékeink közül, foglalj online és gyere el személyesen átvenni!">
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function () {
-            // https://dashboard.emailjs.com/admin/account
-            emailjs.init("j-F-zvUz1kreUJMnk");
-        })();
-    </script>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <a href="#" class="logo">
-                <span class="logo-icon">🛡️</span>
-                <span class="logo-text">ScreenShield<span class="logo-accent">Pro</span></span>
+    <!-- Animated Background Particles -->
+    <div class="bg-particles" id="bg-particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <span class="logo-icon">🛍️</span>
+                <span class="logo-text">Itthoni Bolt</span>
             </a>
-            <nav class="nav">
-                <a href="#phones" class="nav-link">Telefonok</a>
-                <a href="#products" class="nav-link">Üvegfóliák</a>
-                <a href="#products" class="nav-link">Tokok</a>
-                <a href="#about" class="nav-link">Rólunk</a>
-                <a href="#contact" class="nav-link">Kapcsolat</a>
-            </nav>
-            <button class="cart-btn" id="cartBtn">
-                <span class="cart-icon">🛒</span>
-                <span class="cart-count" id="cartCount">0</span>
-            </button>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#hero" class="nav-link active" data-section="hero">Főoldal</a></li>
+                <li><a href="#products" class="nav-link" data-section="products">Termékek</a></li>
+                <li><a href="#about" class="nav-link" data-section="about">Rólunk</a></li>
+                <li><a href="#contact" class="nav-link" data-section="contact">Kapcsolat</a></li>
+                <li><a href="#admin-section" class="nav-link nav-admin-link" id="nav-admin-link"
+                        data-section="admin-section" style="display:none;">⚙️ Admin</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menü megnyitása">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
-    </header>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <nav class="mobile-nav">
-            <a href="#phones" class="mobile-nav-link">Telefonok</a>
-            <a href="#products" class="mobile-nav-link">Üvegfóliák</a>
-            <a href="#products" class="mobile-nav-link">Tokok</a>
-            <a href="#about" class="mobile-nav-link">Rólunk</a>
-            <a href="#contact" class="mobile-nav-link">Kapcsolat</a>
-        </nav>
-    </div>
+    </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg">
-            <div class="floating-shape shape-1"></div>
-            <div class="floating-shape shape-2"></div>
-            <div class="floating-shape shape-3"></div>
-        </div>
-        <div class="container hero-content">
-            <h1 class="hero-title animate-fade-up">
-                Prémium<br>
-                <span class="gradient-text">Üvegfóliák</span>
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title animate-in">
+                <span class="hero-highlight">Itthoni</span> Bolt
             </h1>
-            <p class="hero-subtitle animate-fade-up delay-1">
-                Védd meg telefonod kijelzőjét a legmagasabb minőségű üvegfóliákkal.
-                Samsung és iPhone készülékekhez.
+            <p class="hero-subtitle animate-in delay-1">
+                Válogass termékeink közül, foglalj online, és gyere el személyesen átvenni!
             </p>
-            <div class="hero-buttons animate-fade-up delay-2">
-                <a href="#phones" class="btn btn-primary">
-                    <span>Válassz Telefont</span>
-                    <span class="btn-shine"></span>
-                </a>
-                <a href="#products" class="btn btn-secondary">Összes Termék</a>
-            </div>
-            <div class="hero-stats animate-fade-up delay-3">
-                <div class="stat">
-                    <span class="stat-number">50K+</span>
-                    <span class="stat-label">Elégedett Vásárló</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">9H</span>
-                    <span class="stat-label">Keménység</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">99.9%</span>
-                    <span class="stat-label">Átlátszóság</span>
-                </div>
-            </div>
+            <a href="#products" class="hero-btn animate-in delay-2">
+                <span>Termékek megtekintése</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+            </a>
         </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Phone Selector Section -->
-    <section class="phone-selector" id="phones">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-tag">Válassz Telefonod</span>
-                <h2 class="section-title">Válaszd ki a telefont</h2>
-                <p class="section-subtitle">Válaszd ki a márkát és modellt, hogy megtaláld a tökéletes üvegfóliát</p>
-            </div>
-
-            <div class="selector-container animate-on-scroll">
-                <!-- Brand Selection -->
-                <div class="brand-selector">
-                    <button class="brand-btn" data-brand="samsung">
-                        <div class="brand-logo">
-                            <span class="brand-icon samsung-icon">S</span>
-                        </div>
-                        <span class="brand-name">Samsung</span>
-                    </button>
-                    <button class="brand-btn" data-brand="iphone">
-                        <div class="brand-logo">
-                            <span class="brand-icon apple-icon">🍎</span>
-                        </div>
-                        <span class="brand-name">iPhone</span>
-                    </button>
-                </div>
-
-                <!-- Model Selection -->
-                <div class="model-selector" id="modelSelector">
-                    <h3 class="model-title">Válassz modellt</h3>
-                    <div class="model-grid" id="modelGrid">
-                        <!-- Models will be inserted by JavaScript -->
-                    </div>
-                </div>
-            </div>
+        <div class="hero-decoration">
+            <div class="hero-blob blob-1"></div>
+            <div class="hero-blob blob-2"></div>
+            <div class="hero-blob blob-3"></div>
         </div>
     </section>
 
     <!-- Products Section -->
-    <section class="products" id="products">
+    <section class="section" id="products">
         <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-tag">Termékeink</span>
-                <h2 class="section-title" id="productsTitle">Válassz egy telefont a termékekhez</h2>
-                <p class="section-subtitle">Prémium minőségű kiegészítők minden szükségletre</p>
-
-                <div class="category-switcher">
-                    <button class="category-btn active" id="catGlass" data-category="glass">
-                        Üvegfóliák
-                    </button>
-                    <button class="category-btn" id="catCase" data-category="case">
-                        Tokok
-                    </button>
-                </div>
+            <div class="section-header animate-in">
+                <h2 class="section-title">Termékeink</h2>
+                <p class="section-subtitle">Nézd meg kínálatunkat és foglald le, ami tetszik!</p>
             </div>
-
-            <div class="products-grid" id="productsGrid">
-                <!-- Products will be inserted by JavaScript -->
+            <div class="product-grid" id="product-container">
+                <!-- Products will be injected here by JS -->
+            </div>
+            <div class="empty-state" id="empty-state" style="display:none;">
+                <div class="empty-icon">📦</div>
+                <h3>Még nincsenek termékek</h3>
+                <p>Az admin panelen tudsz termékeket hozzáadni.</p>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="features" id="about">
+    <!-- About Section -->
+    <section class="section section-alt" id="about">
         <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="section-tag">Miért Válassz Minket?</span>
-                <h2 class="section-title">Prémium Védelem</h2>
+            <div class="section-header animate-in">
+                <h2 class="section-title">Miért Válassz Minket?</h2>
             </div>
             <div class="features-grid">
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">💪</div>
-                    <h3>9H Keménység</h3>
-                    <p>Maximális védelem karcolások és ütések ellen a legerősebb üvegtechnológiával</p>
+                <div class="feature-card glass animate-in">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Gyors Átvétel</h3>
+                    <p>Foglalj online, gyere el és vedd át a terméked percek alatt!</p>
                 </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">👁️</div>
-                    <h3>Kristálytiszta</h3>
-                    <p>99.9% átlátszóság - mintha nem is lenne rajta semmi</p>
+                <div class="feature-card glass animate-in delay-1">
+                    <div class="feature-icon">💎</div>
+                    <h3>Kiváló Minőség</h3>
+                    <p>Csak a legjobb minőségű termékeket kínáljuk vásárlóinknak.</p>
                 </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">🎯</div>
-                    <h3>Tökéletes Illeszkedés</h3>
-                    <p>Precíz vágás minden modellhez, buborékmentes felhelyezés</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">✨</div>
-                    <h3>Olajálló Bevonat</h3>
-                    <p>Ujjlenyomat-mentes felület, könnyű tisztítás</p>
+                <div class="feature-card glass animate-in delay-2">
+                    <div class="feature-icon">💬</div>
+                    <h3>Email Visszaigazolás</h3>
+                    <p>Azonnal kapsz egy visszaigazolást email-ben a foglalásodról.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="contact" id="contact">
+    <section class="section" id="contact">
         <div class="container">
-            <div class="contact-content animate-on-scroll">
-                <div class="contact-info">
-                    <span class="section-tag">Kapcsolat</span>
-                    <h2 class="section-title">Kérdésed van?</h2>
-                    <p>Vedd fel velünk a kapcsolatot és segítünk megtalálni a tökéletes üvegfóliát!</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <span class="contact-icon">📧</span>
-                            <span>byekovrat@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📱</span>
-                            <span>+36 30 686 5192</span>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon">📍</span>
-                            <span>Kisújszállás</span>
-                        </div>
-                    </div>
+            <div class="section-header animate-in">
+                <h2 class="section-title">Kapcsolat</h2>
+                <p class="section-subtitle">Kérdésed van? Keress bátran!</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card glass animate-in">
+                    <div class="contact-icon">📍</div>
+                    <h3>Cím</h3>
+                    <p>Személyes átvétel a boltban</p>
                 </div>
-                <form class="contact-form" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" placeholder="Neved" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Email címed" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Üzeneted" rows="4" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">
-                        <span>Küldés</span>
-                        <span class="btn-shine"></span>
-                    </button>
-                </form>
+                <div class="contact-card glass animate-in delay-1">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>info@ittthonibolt.hu</p>
+                </div>
+                <div class="contact-card glass animate-in delay-2">
+                    <div class="contact-icon">📱</div>
+                    <h3>Telefon</h3>
+                    <p>+36 XX XXX XXXX</p>
+                </div>
             </div>
         </div>
     </section>
+
+    <!-- Admin Section -->
+    <section class="section admin-section" id="admin-section" style="display:none;">
+        <div class="container">
+            <div class="section-header animate-in">
+                <h2 class="section-title">⚙️ Admin Panel</h2>
+                <p class="section-subtitle">Termékek kezelése – hozzáadás, szerkesztés, törlés</p>
+                <button class="admin-btn admin-btn-cancel" onclick="logoutAdmin()"
+                    style="margin:1rem auto 0;display:inline-flex;">🔒 Kijelentkezés</button>
+            </div>
+
+            <!-- Add/Edit Product Form -->
+            <div class="admin-form-container glass animate-in">
+                <h3 class="admin-form-title" id="admin-form-title">Új Termék Hozzáadása</h3>
+                <form id="admin-product-form" class="admin-form">
+                    <input type="hidden" id="edit-product-id">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="admin-product-name">Termék neve</label>
+                            <input type="text" id="admin-product-name" required
+                                placeholder="Pl. Vezeték nélküli fülhallgató">
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-product-price">Ár</label>
+                            <input type="text" id="admin-product-price" required placeholder="Pl. 4.990 Ft">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="admin-product-desc">Leírás</label>
+                            <textarea id="admin-product-desc" rows="3" required
+                                placeholder="Termék rövid leírása..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="admin-product-stock">Készlet (db)</label>
+                            <input type="number" id="admin-product-stock" min="0" required placeholder="Pl. 5"
+                                value="1">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Termék képe</label>
+                        <div class="image-upload-area" id="image-upload-area">
+                            <input type="file" id="admin-product-image" accept="image/*" hidden>
+                            <div class="upload-placeholder" id="upload-placeholder">
+                                <div class="upload-icon">📷</div>
+                                <p>Kattints ide vagy húzd ide a képet</p>
+                                <span class="upload-hint">JPG, PNG, WebP – max 2MB</span>
+                            </div>
+                            <img id="image-preview" class="image-preview" style="display:none;" alt="Előnézet">
+                        </div>
+                    </div>
+
+                    <div class="admin-form-actions">
+                        <button type="submit" class="admin-btn admin-btn-save" id="admin-save-btn">
+                            <span>💾</span> Mentés
+                        </button>
+                        <button type="button" class="admin-btn admin-btn-cancel" id="admin-cancel-btn"
+                            style="display:none;">
+                            <span>✖️</span> Mégse
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Product List -->
+            <div class="admin-product-list animate-in" id="admin-product-list">
+                <!-- Admin product cards will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Modal -->
+    <div id="reservation-modal" class="modal-overlay">
+        <div class="modal-content glass">
+            <button id="close-modal" class="close-modal" aria-label="Bezárás">&times;</button>
+            <h2 class="modal-title">📋 Foglalás</h2>
+            <p id="selected-product-info" class="modal-product-info"></p>
+
+            <form id="reservation-form" class="reservation-form">
+                <input type="hidden" id="product-id" name="product_id">
+                <input type="hidden" id="product-name" name="product_name">
+                <input type="hidden" name="shop_name" value="Itthoni Bolt">
+
+                <div class="form-group">
+                    <label for="user_name">Neved</label>
+                    <input type="text" id="user_name" name="from_name" required placeholder="Pl. Kovács István">
+                </div>
+
+                <div class="form-group">
+                    <label for="user_email">Email címed</label>
+                    <input type="email" id="user_email" name="reply_to" required placeholder="pelda@email.hu">
+                </div>
+
+                <div class="form-group">
+                    <label for="user_phone">Telefonszámod (opcionális)</label>
+                    <input type="tel" id="user_phone" name="phone" placeholder="+36 XX XXX XXXX">
+                </div>
+
+                <div class="form-group">
+                    <label>Mikor jönnél átvenni?</label>
+                    <div id="time-grid" class="time-grid">
+                        <!-- Time slots will be injected here -->
+                    </div>
+                    <input type="hidden" id="selected-time" name="selected_time" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="user_message">Megjegyzés (opcionális)</label>
+                    <textarea id="user_message" name="message" rows="2" placeholder="Egyéb kérés, kérdés..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <span class="btn-text">Foglalás Beküldése</span>
+                    <span class="btn-loader" style="display:none;"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <a href="#" class="logo">
-                        <span class="logo-icon">🛡️</span>
-                        <span class="logo-text">ScreenShield<span class="logo-accent">Pro</span></span>
-                    </a>
-                    <p>Prémium üvegfóliák Samsung és iPhone készülékekhez.</p>
+                    <span class="logo-icon">🛍️</span>
+                    <span class="logo-text">Itthoni Bolt</span>
                 </div>
-                <div class="footer-links">
-                    <h4>Navigáció</h4>
-                    <a href="#phones">Telefonok</a>
-                    <a href="#products">Termékek</a>
-                    <a href="#about">Rólunk</a>
-                    <a href="#contact">Kapcsolat</a>
-                </div>
-                <div class="footer-links">
-                    <h4>Információ</h4>
-                    <a href="#">Szállítás</a>
-                    <a href="#">Garancia</a>
-                    <a href="#">ÁSZF</a>
-                    <a href="#">Adatvédelem</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2026 ScreenShield Pro. Minden jog fenntartva.</p>
+                <p class="footer-text">© 2026 Itthoni Bolt. Minden jog fenntartva.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Cart Sidebar -->
-    <div class="cart-overlay" id="cartOverlay"></div>
-    <div class="cart-sidebar" id="cartSidebar">
-        <div class="cart-header">
-            <h3>Kosár</h3>
-            <button class="cart-close" id="cartClose">✕</button>
-        </div>
-        <div class="cart-items" id="cartItems">
-            <!-- Cart items will be inserted by JavaScript -->
-        </div>
-        <div class="cart-footer">
-            <div class="cart-total">
-                <span>Összesen:</span>
-                <span id="cartTotal">0 Ft</span>
-            </div>
-
-            <div class="cart-actions" id="cartActions">
-                <button class="btn btn-primary btn-full" id="startCheckoutBtn">
-                    <span>Megrendelés</span>
-                    <span class="btn-shine"></span>
-                </button>
-            </div>
-
-            <!-- Hidden Checkout Form in Sidebar -->
-            <form class="sidebar-checkout-form" id="sidebarCheckoutForm" style="display: none;">
-                <h4 class="form-title">Megrendelés adatai</h4>
-                <div class="form-group">
-                    <label for="sideOrderName">Név</label>
-                    <input type="text" id="sideOrderName" placeholder="Teljes neved" required>
-                </div>
-                <div class="form-group">
-                    <label for="sideOrderEmail">Email cím</label>
-                    <input type="email" id="sideOrderEmail" placeholder="pelda@email.hu" required>
-                </div>
-                <div class="form-group">
-                    <label for="sideOrderEmailConfirm">Email megerősítése</label>
-                    <input type="email" id="sideOrderEmailConfirm" placeholder="Mégegyszer az email címed" required>
-                </div>
-                <div class="form-group">
-                    <label for="sideOrderPhone">Telefonszám</label>
-                    <input type="tel" id="sideOrderPhone" placeholder="+36 30 123 4567" required>
-                </div>
-                <div class="form-group">
-                    <label for="sideOrderAddress">Szállítási cím</label>
-                    <textarea id="sideOrderAddress" rows="3" placeholder="Irányítószám, Város, Utca, Házszám"
-                        required></textarea>
-                </div>
-                <div class="checkout-actions">
-                    <button type="button" class="btn btn-secondary btn-full" id="backToCartBtn">Vissza</button>
-                    <button type="submit" class="btn btn-primary btn-full">Rendelés</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-
-
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">
-        <span class="toast-icon">✓</span>
-        <span class="toast-message" id="toastMessage">Termék hozzáadva!</span>
-    </div>
+    <!-- Admin Login Button (discreet) -->
+    <button class="admin-login-btn" id="admin-login-btn" onclick="loginAdmin()">🔐 Admin</button>
 
     <script src="script.js"></script>
 </body>
