@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+  <title>Darázssimogató – Ahol a bátorság találkozik a zümmögéssel</title>
+  <meta name="description" content="Magyarország első darázssimogatója. Élmény, adrenalin és zümmögés egy helyen. Foglalj időpontot!" />
+
+  <link rel="icon" href="ChatGPT Image 2026. jan. 27. 17_58_28.png">
+
+  <style>
+    :root{
+      --yellow:#ffd400;
+      --black:#111;
+      --gray:#f5f5f5;
+      --accent:#ff9800;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;color:var(--black);background:#fff;line-height:1.6}
+    header{background:linear-gradient(135deg,var(--yellow),var(--accent));color:#000}
+    .container{max-width:1100px;margin:auto;padding:24px}
+    nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    nav a{color:#000;text-decoration:none;font-weight:600;margin-left:12px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:center}
+    .badge{display:inline-block;background:#000;color:#fff;padding:6px 10px;border-radius:999px;font-size:12px}
+    h1{font-size:42px;margin:12px 0}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:12px 18px;border-radius:10px;border:0;font-weight:700;cursor:pointer}
+    .btn.primary{background:#000;color:#fff}
+    .btn.secondary{background:#fff;color:#000;border:2px solid #000}
+    .card{background:#fff;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.1);padding:20px}
+    section{padding:56px 0}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .icon{font-size:32px}
+    .price{font-size:32px;font-weight:800}
+    .tag{background:var(--gray);padding:6px 10px;border-radius:8px;display:inline-block}
+    .faq details{background:var(--gray);padding:14px 16px;border-radius:12px;margin-bottom:10px}
+    .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+    .ph{background:repeating-linear-gradient(45deg,#eee,#eee 10px,#ddd 10px,#ddd 20px);border-radius:12px;height:140px}
+    footer{background:#111;color:#fff}
+    footer a{color:#fff}
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+      .gallery{grid-template-columns:1fr 1fr}
+      h1{font-size:34px}
+    }
+    /* Animations */
+    .fade-in{animation:fade .8s ease-out both}
+    @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .hover-lift{transition:transform .2s, box-shadow .2s}
+    .hover-lift:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.15)}
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      const btn=document.querySelector('#openDisclaimer');
+      const modal=document.querySelector('#disclaimer');
+      const close=()=>modal.close();
+      if(btn){btn.onclick=()=>modal.showModal();}
+      document.querySelectorAll('[data-close]').forEach(b=>b.onclick=close);
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <strong>🐝 Darázssimogató</strong>
+        <div>
+          <a href="#rolunk">Rólunk</a>
+          <a href="#elmenyek">Élmények</a>
+          <a href="#arak">Árak</a>
+          <a href="#faq">GYIK</a>
+          <a href="#foglalas">Foglalás</a>
+        </div>
+      </nav>
+      <div class="hero fade-in">
+        <div>
+          <span class="badge">Magyarország #1 (és egyetlen) darázssimogatója</span>
+          <h1>Ahol a bátorság találkozik a zümmögéssel</h1>
+          <p>Ha azt hitted, mindent kipróbáltál, itt az idő egy <strong>felejthetetlen</strong> élményre. Oktatással, humorral és biztonsági protokollal.
+          </p>
+          <div class="cta"><button id="openDisclaimer" class="btn secondary">Biztonsági nyilatkozat</button>
+            <a href="#foglalas"><button class="btn primary">Időpont foglalása</button></a>
+            <a href="#faq"><button class="btn secondary">Hogyan működik?</button></a>
+          </div>
+        </div>
+        <div class="card hover-lift">
+          <h3>Gyors infó</h3>
+          <ul>
+            <li>📍 Helyszín: „titkos” (foglalás után)</li>
+            <li>⏱️ Időtartam: 20–45 perc</li>
+            <li>🧤 Felszerelés: biztosítva</li>
+            <li>👨‍🏫 Vezetés: tapasztalt darázs-whisperer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="rolunk">
+    <div class="container">
+      <h2>Nyitás: 2026 Július 1-31.</h2>
+      <h2>Rólunk</h2>
+      <p>A Darázssimogató egy <em>szatirikus élményközpont</em>, ahol a természet iránti tisztelet és a jókedv találkozik. Célunk, hogy a darazsaktól való félelmet edukációval és kontrollált élménnyel oldjuk.
+      </p>
+      <div class="grid">
+        <div class="card hover-lift"><div class="icon">🧠</div><h3>Oktatás</h3><p>Megtanulod, miért nem gonoszak a darazsak.</p></div>
+        <div class="card hover-lift"><div class="icon">🛡️</div><h3>Biztonság</h3><p>Protokoll, felszerelés, felügyelet. Allergiásoknak NEM ajánlott.</p></div>
+        <div class="card hover-lift"><div class="icon">😂</div><h3>Humor</h3><p>Nevetés garantált – zümmögés opcionális.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="elmenyek" style="background:var(--gray)">
+    <div class="container">
+      <h2>Élménycsomagok</h2>
+      <div class="grid">
+        <div class="card hover-lift">
+          <span class="tag">Kezdő</span>
+          <h3>„Köszönés a kaptárnak”</h3>
+          <p>Megfigyelés, rövid simítás védőfelszerelés nélkül. Nincs FOTÓ!.</p>
+        </div>
+        <div class="card hover-lift">
+          <span class="tag">Haladó</span>
+          <h3>„Bátor kéz”</h3>
+          <p>Védőruha, fotózás, meg is simogathatod őket .</p>
+        </div>
+        <div class="card hover-lift">
+          <span class="tag">Pro</span>
+          <h3>„Zümmögő legenda”</h3>
+          <p>Hosszabb élmény, extra sztorik, oklevél, fotózás, meg is simogathatod őket.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="arak">
+    <div class="container">
+
+      
+
+
+      <h2>Árak</h2>
+      <div class="grid">
+        <div class="card hover-lift"><h3>Kezdő</h3><div class="price">6 990 Ft</div><p>20 perc</p></div>
+        <div class="card hover-lift"><h3>Haladó</h3><div class="price">9 990 Ft</div><p>30 perc</p></div>
+        <div class="card hover-lift"><h3>Pro</h3><div class="price">14 990 Ft</div><p>45 perc + oklevél</p></div>
+      </div>
+      <p><small>* Csoportos kedvezmény és ajándékutalvány elérhető.</small></p>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <div class="container">
+      <h2>Vélemények</h2>
+      <div class="grid">
+        <div class="card"><p>„Életem legfurcsább, de legjobb élménye.”</p><strong>– Viktor</strong></div>
+        <div class="card"><p>„A darazsak aranyosabbak, mint hittem.”</p><strong>– Péter</strong></div>
+        <div class="card"><p>„Meg csíptek! Biztos nem jövök többet!.”</p><strong>– Noel</strong></div>
+        <div class="card"><p>„Legjobb.”</p><strong>– Patrik</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="background:var(--gray)">
+    <div class="container">
+      <h2>Gyakori kérdések</h2>
+      <div class="faq">
+        <details><summary>Biztonságos?</summary><p>Szigorú szabályok mellett igen. Allergiásoknak nem ajánlott.</p></details>
+        <details><summary>Megcsípnek?</summary><p>A cél az, hogy ne. De a természet kiszámíthatatlan.</p></details>
+        <details><summary>Gyerekek jöhetnek?</summary><p>18+ ajánlott. 16–17 szülői engedéllyel.</p></details>
+        <details><summary>Fotózhatok?</summary><p>Igen, sőt segítünk jó képeket csinálni.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="galeria">
+    <div class="container">
+      <h2>Galéria</h2>
+      <div class="gallery">
+      
+        <div class="ph"></div><div class="ph"></div><div class="ph"></div><div class="ph"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="foglalas" style="background:var(--gray)">
+    <div class="container">
+      <h2>Foglalás</h2>
+      <div class="card hover-lift">
+        <form onsubmit="event.preventDefault(); alert('Köszi! Jelentkezésed megkaptuk.');">
+          <label>Név<br><input required style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc"></label><br><br>
+          <label>Email<br><input type="email" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc"></label><br><br>
+          <label>Csomag<br>
+            <select style="width:100%;padding:10px;border-radius:8px;border:1px solid #ccc">
+              <option>Kezdő</option><option>Haladó</option><option>Pro</option>
+            </select>
+          </label><br><br>
+          <button class="btn primary" type="submit">Foglalok</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2026 Darázssimogató. Minden jog fenntartva. | <a href="#">ÁSZF</a> | <a href="#">Adatvédelem</a></p>
+      
+    </div>
+    </footer>
+
+  <dialog id="disclaimer" style="border:none;border-radius:16px;max-width:520px">
+    <h3>Biztonsági nyilatkozat</h3>
+    <p>A Darázssimogató szatirikus élmény. Allergiásoknak nem ajánlott. A részvétel saját felelősségre történik.</p>
+    <button class="btn primary" data-close>Értettem</button>
+  </dialog>
+</body>
+</html>
