@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Kárai Art Gallery — Egyedi festmények, tájképek, portrék és absztrakt alkotások közvetlenül a művésztől.">
+    <title>Kárai Art Gallery — Egyedi Festmények</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-content">
+            <a href="#" class="nav-logo">Kárai <span>Art</span> Gallery</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hero" class="active">Főoldal</a></li>
+                <li><a href="#gallery">Galéria</a></li>
+                <li><a href="#about">Rólam</a></li>
+                <li><a href="#order">Rendelés</a></li>
+                <li><a href="#contact">Kapcsolat</a></li>
+            </ul>
+            <div class="nav-right" style="display: flex; align-items: center; gap: 16px;">
+                <div class="nav-actions">
+                    <button class="lang-toggle" id="langToggle" aria-label="Nyelv váltás" title="Magyar / English">
+                        <span class="lang-icon">🌐</span>
+                        <span class="lang-label" id="langLabel">EN</span>
+                    </button>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Téma váltás" title="Világos / Sötét mód">
+                        <span class="theme-icon-sun">☀️</span>
+                        <span class="theme-icon-moon">🌙</span>
+                    </button>
+                </div>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menü megnyitása">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-content fade-in">
+            <p class="hero-subtitle">Egyedi festmények</p>
+            <h1>Művészet, ami<br>otthonná varázsolja<br>a teret</h1>
+            <p class="hero-description">
+                Minden alkotás egyedi, kézzel festett mű — tájképektől portréig.
+                Fedezze fel a galériát és válassza ki az Önhöz illő festményt.
+            </p>
+            <div class="hero-buttons">
+                <a href="#gallery" class="btn btn-primary">Galéria megtekintése</a>
+                <a href="#contact" class="btn btn-outline">Kapcsolat</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section class="section" id="gallery">
+        <div class="container">
+            <div class="section-header fade-in">
+                <p class="section-label">Alkotások</p>
+                <h2 class="section-title">Galéria</h2>
+                <p class="section-desc">Válogatás a legújabb festmények közül. Kattintson egy alkotásra a részletekért.
+                </p>
+            </div>
+
+            <div class="gallery-filters fade-in">
+                <button class="filter-btn active" data-filter="all">Összes</button>
+                <button class="filter-btn" data-filter="tajkep">Tájkép</button>
+                <button class="filter-btn" data-filter="portre">Portré</button>
+                <button class="filter-btn" data-filter="absztrakt">Absztrakt</button>
+                <button class="filter-btn" data-filter="csendelet">Csendélet</button>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <!-- Paintings inserted by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image fade-in">
+                    <img src="images/haho.jpg" alt="A művész műtermében">
+                </div>
+                <div class="about-text fade-in">
+                    <p class="section-label">A Művész</p>
+                    <h3>Kárai — Festő</h3>
+                    <p>
+                        Több évtizedes tapasztalattal rendelkező festőművész, aki az olajfestészet
+                        és az impresszionista stílus szerelmese. Alkotásaiban a természet szépségét,
+                        az emberek érzelmeit és a mindennapi élet pillanatait örökíti meg.
+                    </p>
+                    <p>
+                        Minden festmény egyedi darab, amelyet gondos odafigyeléssel és szenvedéllyel
+                        készítek. Ha megtetszik egy alkotásom, keressen bátran — szívesen készítek
+                        egyedi megrendelésre is.
+                    </p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">Elkészült festmény</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">20+</div>
+                            <div class="stat-label">Év tapasztalat</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">30+</div>
+                            <div class="stat-label">Elégedett vásárló</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NEWSLETTER ===== -->
+    <section class="section newsletter-section" id="newsletter">
+        <div class="container">
+            <div class="newsletter-box fade-in">
+                <div class="newsletter-text">
+                    <p class="section-label">Értesítések</p>
+                    <h2 class="section-title">Iratkozzon fel</h2>
+                    <p class="section-desc">Legyen elsőként értesülve az új festményekről és egyedi ajánlatokról.</p>
+                </div>
+                <form class="newsletter-form" id="newsletterForm">
+                    <div class="newsletter-input-group">
+                        <input type="email" id="newsletterEmail" placeholder="Email címe" required>
+                        <button type="submit" class="btn btn-primary">Feliratkozás</button>
+                    </div>
+                    <div class="form-success" id="newsletterSuccess">
+                        ✅ Sikeres feliratkozás! Köszönjük az érdeklődését.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ORDER ===== -->
+    <section class="section section-dark" id="order">
+        <div class="container">
+            <div class="section-header fade-in">
+                <p class="section-label" id="orderLabel">Vásárlási folyamat</p>
+                <h2 class="section-title" id="orderTitle">Egyedi Rendelés</h2>
+                <p class="section-desc" id="orderDesc">Szeretne egy festményt megvásárolni? Itt
+                    minden információt megtalál.</p>
+            </div>
+
+            <div class="order-grid">
+                <div class="order-info fade-in">
+                    <div class="order-step">
+                        <div class="step-num">1</div>
+                        <div class="step-text">
+                            <h4 id="step1Title">Válasszon festményt</h4>
+                            <p id="step1Desc">Nézze meg a galériát, vagy írja le egyedi elképzelését.</p>
+                        </div>
+                    </div>
+                    <div class="order-step">
+                        <div class="step-num">2</div>
+                        <div class="step-text">
+                            <h4 id="step2Title">Vegye fel a kapcsolatot</h4>
+                            <p id="step2Desc">Töltse ki az alábbi űrlapot az igényeivel.</p>
+                        </div>
+                    </div>
+                    <div class="order-step">
+                        <div class="step-num">3</div>
+                        <div class="step-text">
+                            <h4 id="step3Title">Egyeztetés és Szállítás</h4>
+                            <p id="step3Desc">Pontosítjuk a részleteket, és biztonságosan elküldöm az alkotást.</p>
+                        </div>
+                    </div>
+
+                    <div class="shipping-info">
+                        <h4 id="shippingTitle">Szállítás és Fizetés</h4>
+                        <ul>
+                            <li id="shipping1">Gondos, ütésálló csomagolás</li>
+                            <li id="shipping2">Házhozszállítás futárszolgálattal</li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <form class="order-form fade-in" id="orderForm">
+                    <div class="form-group">
+                        <label for="orderName" id="orderNameLabel">Név</label>
+                        <input type="text" id="orderName" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="orderEmail" id="orderEmailLabel">Email</label>
+                            <input type="email" id="orderEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="orderPhone" id="orderPhoneLabel">Telefonszám</label>
+                            <input type="tel" id="orderPhone" placeholder="+36 30 686 5192">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderAddress" id="orderAddressLabel">Lakcím (Szállításhoz)</label>
+                        <input type="text" id="orderAddress" placeholder="Irányítószám, Város, Utca, Házszám">
+                    </div>
+                    <div class="form-group">
+                        <label for="orderPainting" id="orderPaintingLabel">Kiválasztott festmény vagy elképzelés</label>
+                        <input type="text" id="orderPainting"
+                            placeholder="Pl: Tavon a naplemente, vagy egyedi portré...">
+                    </div>
+                    <div class="form-group">
+                        <label for="orderPayment" id="orderPaymentLabel">Fizetési mód</label>
+                        <select id="orderPayment" class="form-select">
+                            <option value="keszpenz" id="payCash">Készpénz (átvételkor)</option>
+                            <option value="kartya" id="payCard">Bankkártya (Online)</option>
+                            <option value="utalas" id="payTransfer">Banki átutalás</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderMsg" id="orderMsgLabel">Megjegyzés / Kérdések</label>
+                        <textarea id="orderMsg" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="orderSubmitBtn">Rendelés indítása</button>
+                    <div class="form-success" id="orderSuccess">
+                        ✅ Köszönöm! Hamarosan felveszem Önnel a kapcsolatot a részletekkel.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="section" id="contact">
+        <div class="container">
+            <div class="section-header fade-in">
+                <p class="section-label">Kapcsolat</p>
+                <h2 class="section-title">Írjon nekem</h2>
+                <p class="section-desc">Érdeklődik egy festmény iránt, vagy egyedi megrendelést szeretne? Keressen
+                    bátran!</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-info fade-in">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>karaiartgalery@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div>
+                            <h4>Telefon</h4>
+                            <p>+36 30 686 5192</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Helyszín</h4>
+                            <p>Magyarország</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🕐</div>
+                        <div>
+                            <h4>Elérhető</h4>
+                            <p>Hétfő – Péntek, 9:00 – 18:00</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form fade-in" id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Név</label>
+                            <input type="text" id="name" name="name" placeholder="Az Ön neve" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="pelda@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Tárgy</label>
+                        <input type="text" id="subject" name="subject" placeholder="Érdeklődés festmény iránt">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Üzenet</label>
+                        <textarea id="message" name="message" placeholder="Írja le, miben segíthetek..."
+                            required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Üzenet küldése</button>
+                    <div class="form-success" id="formSuccess">
+                        ✅ Üzenet sikeresen elküldve! Hamarosan válaszolok.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="nav-logo">Kárai <span>Art</span> Gallery</div>
+                    <p>Egyedi, kézzel festett alkotások közvetlenül a művésztől. Minden festmény történetet mesél.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigáció</h4>
+                    <a href="#hero">Főoldal</a>
+                    <a href="#gallery">Galéria</a>
+                    <a href="#about">Rólam</a>
+                    <a href="#order">Rendelés</a>
+                    <a href="#contact">Kapcsolat</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Információ</h4>
+                    <a href="#contact">Egyedi megrendelés</a>
+                    <a href="#contact">Szállítás</a>
+                    <a href="#about">A művészről</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kárai Art Gallery. Minden jog fenntartva.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <img src="" alt="" id="lightboxImg">
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDesc"></p>
+                <button class="btn-room-view" id="lightboxRoomBtn">🏠 Szobában</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ROOM PREVIEW MODAL ===== -->
+    <div class="room-preview" id="roomPreview">
+        <div class="room-preview-content">
+            <button class="lightbox-close" id="roomPreviewClose">&times;</button>
+            <h3 class="room-modal-title">Festmény a szobában</h3>
+            <div class="room-scene">
+                <div class="room-wall">
+                    <div class="room-frame">
+                        <img src="" alt="" id="roomPaintingImg">
+                    </div>
+                </div>
+                <div class="room-furniture">
+                    <div class="room-couch"></div>
+                    <div class="room-plant">
+                        <div class="plant-pot"></div>
+                        <div class="plant-leaf plant-leaf-1"></div>
+                        <div class="plant-leaf plant-leaf-2"></div>
+                        <div class="plant-leaf plant-leaf-3"></div>
+                    </div>
+                    <div class="room-lamp">
+                        <div class="lamp-shade"></div>
+                        <div class="lamp-stand"></div>
+                    </div>
+                </div>
+            </div>
+            <p class="room-preview-info" id="roomPreviewTitle"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

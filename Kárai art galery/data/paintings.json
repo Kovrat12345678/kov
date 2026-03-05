@@ -1,0 +1,67 @@
+[
+    {
+        "id": 1,
+        "title_hu": "Színtörés",
+        "title_en": "Tuscan Hills",
+        "category": "absztrakt",
+        "details_hu": "akril-vászon, 90 x 90 cm.",
+        "details_en": "acrylic on canvas, 90 x 90 cm.",
+        "price": "185.000 Ft ",
+        "image": "images\/painting_1772389739_6884.png",
+        "description_hu": "Kárai Mihály kortárs magyar festőművész absztrakt festménye: Színtörés : akril-vászon, 90 x 90 cm.",
+        "description_en": "Abstract painting by contemporary Hungarian painter Mihály Kárai: Color Break: acrylic on canvas, 90 x 90 cm.",
+        "sold": false
+    },
+    {
+        "id": 2,
+        "title_hu": "Hajnali emléktöredék",
+        "title_en": "A fragment of memory at dawn",
+        "category": "absztrakt",
+        "details_hu": "akril-vászon, 90 x 100 cm.",
+        "details_en": "acrylic on canvas, 90 x 100 cm.",
+        "price": "174.000 Ft",
+        "image": "images\/painting_1772390079_1888.png",
+        "description_hu": "Kárai Mihály kortárs magyar festőművész absztrakt festménye:Hajnali emléktöredék: akril-vászon, 90 x 100 cm.",
+        "description_en": "Abstract painting by contemporary Hungarian painter Mihály Kárai: Fragment of a Dawning Memory: acrylic on canvas, 90 x 100 cm.",
+        "sold": false
+    },
+    {
+        "id": 3,
+        "title_hu": "Pisztácia szereted",
+        "title_en": "Do you like pistachios?",
+        "category": "absztrakt",
+        "details_hu": "akril-vászon, 90 x 100 cm.",
+        "details_en": "acrylic on canvas, 90 x 100 cm.",
+        "price": "173.000 Ft",
+        "image": "images\/painting_1772390411_4328.png",
+        "description_hu": "Kárai Mihály kortárs magyar festőművész absztrakt festménye: Pisztácia szereted: akril-vászon, 90 x 100 cm.\r\n\r\n",
+        "description_en": "Abstract painting by contemporary Hungarian painter Mihály Kárai: Pistachio Love You: acrylic on canvas, 90 x 100 cm.",
+        "sold": false
+    },
+    {
+        "id": 4,
+        "title_hu": "Kárai Mihály kortárs magyar festőművész absztrakt festménye",
+        "title_en": "Abstract painting by contemporary Hungarian painter Mihály Kárai",
+        "category": "absztrakt",
+        "details_hu": "akril-vászon, 80x60 cm.",
+        "details_en": "acrylic on canvas, 80x60 cm.",
+        "price": "145.000 Ft",
+        "image": "images\/painting_1772390714_4526.jpg",
+        "description_hu": "",
+        "description_en": "",
+        "sold": false
+    },
+    {
+        "id": 7,
+        "title_hu": "Téli szél ",
+        "title_en": "Winter wind",
+        "category": "absztrakt",
+        "details_hu": "Olaj, vászon — 90×90cm",
+        "details_en": "",
+        "price": "120.000Ft",
+        "image": "images\/painting_1772388461_7848.png",
+        "description_hu": "",
+        "description_en": "",
+        "sold": true
+    }
+]

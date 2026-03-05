@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kárai Art Gallery — Admin Panel</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <h2>Kárai <span>Art</span></h2>
+                <p>Adminisztrációs felület</p>
+            </div>
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active">🖼️ Festmények</a></li>
+                <li><a href="index.html">🌐 Weboldal megnyitása</a></li>
+            </ul>
+            <div class="sidebar-footer">
+                <a href="#">v1.0.0 — 2026</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1>Festmények kezelése</h1>
+                    <div class="page-header-stats">
+                        <div class="stat-badge">Összesen: <span class="count" id="totalCount">0</span></div>
+                        <div class="stat-badge">Eladva: <span class="count" id="soldCount">0</span></div>
+                    </div>
+                </div>
+                <button class="btn btn-accent" id="openAddModal">
+                    <span>+</span> Új festmény hozzáadása
+                </button>
+            </header>
+
+            <div class="table-wrapper">
+                <table class="paintings-table">
+                    <thead>
+                        <tr>
+                            <th>Kép</th>
+                            <th>Cím (HU / EN)</th>
+                            <th>Kategória</th>
+                            <th>Ár</th>
+                            <th>Állapot</th>
+                            <th>Műveletek</th>
+                        </tr>
+                    </thead>
+                    <tbody id="paintingsTableBody">
+                        <!-- Data inserted by JS -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Painting Modal -->
+    <div class="modal-overlay" id="paintingModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Új festmény</h2>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <form id="paintingForm" enctype="multipart/form-data">
+                <input type="hidden" name="id" id="paintingId">
+                <div class="modal-body">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Cím (Magyar)</label>
+                            <input type="text" name="title_hu" id="title_hu" placeholder="Például: Toszkán táj"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label>Cím (Angol)</label>
+                            <input type="text" name="title_en" id="title_en" placeholder="Example: Tuscan Hills"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label>Kategória</label>
+                            <select name="category" id="category">
+                                <option value="tajkep">Tájkép</option>
+                                <option value="portre">Portré</option>
+                                <option value="absztrakt">Absztrakt</option>
+                                <option value="csendelet">Csendélet</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Ár / Méret</label>
+                            <input type="text" name="price" id="price" placeholder="Például: 85 000 Ft">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Részletek (HU / Méret leírás)</label>
+                            <input type="text" name="details_hu" id="details_hu" placeholder="Olaj, vászon — 60x80 cm">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Details (EN / Size description)</label>
+                            <input type="text" name="details_en" id="details_en" placeholder="Oil on canvas — 60x80 cm">
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Leírás (Magyar)</label>
+                            <textarea name="description_hu" id="description_hu"
+                                placeholder="Rövid leírás a festményről..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Description (English)</label>
+                            <textarea name="description_en" id="description_en"
+                                placeholder="Short description in English..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Kép feltöltése</label>
+                            <div class="image-upload" onclick="document.getElementById('imageInput').click()">
+                                <div class="upload-icon">📷</div>
+                                <p>Kattints a kép kiválasztásához</p>
+                                <input type="file" name="image" id="imageInput" accept="image/*" style="display:none">
+                            </div>
+                            <div class="image-preview" id="imagePreview">
+                                <!-- Preview image here -->
+                            </div>
+                        </div>
+                        <div class="form-group full-width">
+                            <div class="checkbox-group">
+                                <input type="checkbox" name="sold" id="sold" value="true">
+                                <label for="sold">Ez a festmény már elkelt</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-ghost" id="cancelModal">Mégse</button>
+                    <button type="submit" class="btn btn-accent" id="saveBtn">Mentés</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>
