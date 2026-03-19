@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>ADMIN // CONTROL PANEL</title>
+    <link rel="stylesheet" href="style.css?v=1.1">
+</head>
+
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    <div class="scanline-overlay"></div>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>⚡ ADMIN PANEL</h1>
+            <span class="status-badge">● ONLINE</span>
+        </div>
+
+        <div class="quick-messages" id="quickMessages">
+            <button class="quick-btn" data-msg="Hozzáférés megszerezve!" data-type="big">🔓 Hozzáférés
+                megszerezve</button>
+            <button class="quick-btn warning" data-msg="Jelszavak letöltése folyamatban..." data-type="warning">🔑
+                Jelszavak letöltése</button>
+            <button class="quick-btn danger" data-msg="⚠ KAMERA HOZZÁFÉRÉS AKTÍV ⚠" data-type="alert">📷 Kamera
+                hozzáférés</button>
+            <button class="quick-btn" data-msg="Fájlok szkennelése..." data-type="system">📁 Fájlok szkennelés</button>
+            <button class="quick-btn danger" data-msg="Képernyő figyelés bekapcsolva!" data-type="alert">🖥️ Képernyő
+                figyelés</button>
+            <button class="quick-btn warning" data-msg="GPS pozíció meghatározva..." data-type="warning">📍 GPS
+                pozíció</button>
+            <button class="quick-btn" data-msg="Üzenetek olvasása aktív..." data-type="system">💬 Üzenetek
+                olvasása</button>
+            <button class="quick-btn" data-msg="Kontaktok másolása befejeződött ✓" data-type="normal">👥 Kontaktok
+                másolása</button>
+            <button class="quick-btn danger" data-msg="MIKROFON AKTIVÁLVA – Hallgatás..." data-type="alert">🎤 Mikrofon
+                aktiválás</button>
+            <button class="quick-btn warning" data-msg="Banki adatok keresése..." data-type="warning">🏦 Banki
+                adatok</button>
+
+            <button class="quick-btn warning" data-msg="IP_THEFT" data-type="ip_theft">📡 Adatlopás (IP/City)</button>
+            <button class="quick-btn" data-msg="SOCIAL_HACK" data-type="social_hack">🔐 Social Media Hack</button>
+            <button class="quick-btn" data-msg="BANK_CARD" data-type="bank_card">💳 Bankkártya adatok</button>
+            <button class="quick-btn" data-msg="NEARBY_DEVICES" data-type="nearby_devices">📶 Közeli eszközök</button>
+
+            <button class="quick-btn danger" data-msg="BSOD" data-type="bsod">💻 Kék halál (BSOD)</button>
+            <button class="quick-btn danger" data-msg="💰 FIZESS 1000 Ft-ot: 24 ÓRA ⏰" data-type="ransom">💰 Fizess
+                1 milliót!</button>
+            <button class="quick-btn danger" data-msg="BLACKOUT" data-type="blackout">🌑 Kijelző elsötétítés</button>
+            <button class="quick-btn" data-msg="Csak vicceltem 😄 Minden rendben!" data-type="big">😄 Csak
+                vicc!</button>
+        </div>
+
+        <div class="control-group">
+            <h3>⏳ STÁTUSZ VEZÉRLÉS</h3>
+            <div
+                style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px; background: rgba(0, 0, 0, 0.5); padding: 10px; border: 1px solid rgba(0, 170, 255, 0.3); border-radius: 4px;">
+                <span style="font-size: 14px; color: #fff;">"Hamarosan jelentkezem" üzenet:</span>
+                <label class="switch">
+                    <input type="checkbox" id="noticeToggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+            <div
+                style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px; background: rgba(0, 0, 0, 0.5); padding: 10px; border: 1px solid rgba(0, 170, 255, 0.3); border-radius: 4px;">
+                <span style="font-size: 14px; color: #fff;">⌨ Terminál hozzáférés (áldozat írhat):</span>
+                <label class="switch">
+                    <input type="checkbox" id="terminalToggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <h3>🎙️ HANGÜZENET / FELOLVASÁS</h3>
+            <div class="tts-container" style="display:flex; gap:10px; margin-top:10px;">
+                <input type="text" id="ttsInput" placeholder="Ide írd a felolvasandó szöveget...">
+                <button class="quick-btn voice-btn" id="callTTSBtn" data-type="tts" style="flex:1;">🤖
+                    FELOLVASÁS</button>
+            </div>
+            <button class="record-btn" id="recordBtn" style="margin-top:10px;">🎤 HANGÜZENET (TARTSD NYOMVA)</button>
+        </div>
+
+        <div class="message-log" id="messageLog">
+            <div class="no-messages" id="noMessages">Még nincs üzenet. Küldj valamit!</div>
+        </div>
+
+        <div class="victim-log">
+            <h3>🛸 Áldozat válaszai</h3>
+            <div id="victimResponses">Még nincs válasz az áldozattól.</div>
+            <button class="btn-clear" id="clearVictimBtn">Napló ürítése</button>
+        </div>
+
+        <div class="message-input-area">
+            <div class="type-selector">
+                <button class="type-btn active" data-type="normal">NORMAL</button>
+                <button class="type-btn" data-type="alert">⚠ ALERT</button>
+                <button class="type-btn" data-type="warning">⚡ WARNING</button>
+                <button class="type-btn" data-type="system">SYS</button>
+                <button class="type-btn" data-type="big">BIG</button>
+            </div>
+            <div class="input-row">
+                <input type="text" class="message-input" id="messageInput" placeholder="Írj üzenetet..."
+                    autocomplete="off">
+                <button class="send-btn" id="sendBtn">KÜLDÉS</button>
+            </div>
+        </div>
+
+        <div class="admin-footer">
+            <button class="clear-btn" id="clearBtn">🗑️ ÖSSZES TÖRLÉSE</button>
+            <span class="msg-count" id="msgCount">0 üzenet</span>
+        </div>
+    </div>
+
+    <script src="admin.js?v=1.1"></script>
+</body>
+
+</html>
